@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <tentng.version>7.1.0</tentng.version>
+        <tentng.version>7.0.0</tentng.version>
         <selenium.version>3.141.59</selenium.version>
         <allure.testng.version>2.7.0</allure.testng.version>
         <log4j.version>2.13.3</log4j.version>
