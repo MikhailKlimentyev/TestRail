@@ -1,12 +1,11 @@
 package tests;
 
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static data.TestData.EMAIL;
 import static data.TestData.PASSWORD;
 
-public class AuthorizationTest extends BaseTest{
+public class Authorization extends BaseTest{
 
     @Test
     public void authorization () {
@@ -14,6 +13,7 @@ public class AuthorizationTest extends BaseTest{
                 .isPageOpened()
                 .setEmail(EMAIL)
                 .setPassword(PASSWORD)
-                .clickLoginButton();
+                .clickLoginButton()
+                .isPageOpened();
     }
 }

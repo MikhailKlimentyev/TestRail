@@ -37,8 +37,8 @@ public class LoginPage extends BasePage{
         return this;
     }
 
-    public LoginPage clickLoginButton() {
+    public DashboardPage clickLoginButton() {
         driver.findElement(LOGIN_BUTTON).click();
-        return this;
+        return new DashboardPage(driver);
     }
 }
