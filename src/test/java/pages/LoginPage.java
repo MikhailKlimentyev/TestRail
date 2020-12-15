@@ -1,12 +1,13 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static data.TestData.URL;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     public static final By EMAIL_INPUT = By.id("name");
     public static final By PASSWORD_INPUT = By.id("password");
@@ -22,21 +23,25 @@ public class LoginPage extends BasePage{
         return this;
     }
 
+    @Step("Open TestRail")
     public LoginPage openPage() {
         driver.get(URL);
         return this;
     }
 
+    @Step("Input '{email}'")
     public LoginPage setEmail(String email) {
         driver.findElement(EMAIL_INPUT).sendKeys(email);
         return this;
     }
 
+    @Step("Input '{password}'")
     public LoginPage setPassword(String password) {
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         return this;
     }
 
+    @Step("Click button 'Log In'")
     public DashboardPage clickLoginButton() {
         driver.findElement(LOGIN_BUTTON).click();
         return new DashboardPage(driver);
