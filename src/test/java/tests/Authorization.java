@@ -1,9 +1,8 @@
 package tests;
 
 import org.testng.annotations.BeforeClass;
+import utils.PropertyReader;
 
-import static data.TestData.EMAIL;
-import static data.TestData.PASSWORD;
 
 public class Authorization extends BaseTest {
 
@@ -12,8 +11,8 @@ public class Authorization extends BaseTest {
         loginPage
                 .openPage()
                 .isPageOpened()
-                .setEmail(EMAIL)
-                .setPassword(PASSWORD)
+                .setEmail(System.getenv().getOrDefault("user", PropertyReader.getProperty("user")))
+                .setPassword(System.getenv().getOrDefault("pass", PropertyReader.getProperty("pass")))
                 .clickLoginButton()
                 .isPageOpened();
     }
