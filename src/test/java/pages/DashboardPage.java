@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class DashboardPage extends BasePage {
 
     public static final By ADD_PROJECT_BUTTON = By.id("sidebar-projects-add");
+    public static final String PROJECT = "//div[contains(@class,'project')]//a[contains(text(), '%s')]";
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -25,5 +26,8 @@ public class DashboardPage extends BasePage {
         return new ProjectPage(driver);
     }
 
-
+    @Step("Open project '{name}}'")
+    public void openProject(String name) {
+        driver.findElement(By.xpath(String.format(PROJECT,name))).click();
+    }
 }
