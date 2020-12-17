@@ -1,5 +1,6 @@
 package API.models;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,6 +9,8 @@ import lombok.Data;
 public class Project {
     String name;
     String announcement;
-    boolean show_announcement;
-    int suite_mode;
+    @SerializedName("show_announcement")
+    boolean showAnnouncement;
+    @SerializedName("suite_mode")
+    int suiteMode;
 }

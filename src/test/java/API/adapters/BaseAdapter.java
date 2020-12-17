@@ -1,13 +1,14 @@
 package API.adapters;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseAdapter {
 
-    String url = "https://marymanzhos.testrail.io/index.php?/api/";
+    String url = "https://marymanzhos.testrail.io/index.php?/api/v2/";
     Gson converter = new Gson();
 
     public void auth(String user, String password) {
@@ -18,7 +19,7 @@ public class BaseAdapter {
 
     }
 
-    public Response get(String uri) {
+    public String get(String uri) {
         return
                 given()
                         .auth()
@@ -29,7 +30,7 @@ public class BaseAdapter {
                         .get(url + uri)
                 .then()
                         .log().all()
-                        .extract().response();
+                        .extract().body().asString();
 
     }
 
@@ -41,9 +42,9 @@ public class BaseAdapter {
                         .basic("mary_m@mailinator.com", "ssjBJyMTVDCkt/X4L5Im")
                         .header("Content-Type", "application/json")
                         .body(body)
-                        .when()
+                .when()
                         .post(url + uri)
-                        .then()
+                .then()
                         .log().all()
                         .extract().response();
     }
