@@ -46,12 +46,12 @@ public class ProjectPage extends BasePage {
 
     @Step("Activate checkbox 'Show announcement'")
     public ProjectPage activateCheckbox(boolean showAnnouncement) {
-        if(showAnnouncement){
-            if(!driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected()) {
-                    driver.findElement(ANNOUNCEMENT_CHECKBOX).click();
+        if (showAnnouncement) {
+            if (!driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected()) {
+                driver.findElement(ANNOUNCEMENT_CHECKBOX).click();
             }
         } else {
-            if (driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected()){
+            if (driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected()) {
                 driver.findElement(ANNOUNCEMENT_CHECKBOX).click();
             }
         }

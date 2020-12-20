@@ -1,46 +1,79 @@
 package steps;
 
+import API.adapters.ProjectAdapter;
+import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
+import models.Project;
 import org.openqa.selenium.WebDriver;
 
-public class ProjectSteps extends BaseSteps{
+import static org.testng.Assert.assertEquals;
+
+public class ProjectSteps extends BaseSteps {
+
+    ProjectAdapter projectAdapter;
 
     public ProjectSteps(WebDriver driver) {
         super(driver);
+        projectAdapter = new ProjectAdapter();
     }
 
-    @Step("Create new project '{name}'")
-    public void createProject(String name, String announcement, boolean showAnnouncement, String radio) {
+    @Step("Open page with all projects")
+    public ProjectSteps openProjectsPage() {
+        projectsPage
+                .openProjectsPage()
+                .isPageOpened();
+        return this;
+    }
+
+    @Step("Create new project '{project.nameOfProject}'")
+    public ProjectSteps createProject(Project project) {
         dashboardPage
                 .openProjectPage()
                 .isPageOpened()
-                .setNameOfProject(name)
-                .setAnnouncement(announcement)
-                .activateCheckbox(showAnnouncement)
-                .chooseRadiobutton(radio)
+                .setNameOfProject(project.getNameOfProject())
+                .setAnnouncement(project.getAnnouncement())
+                .activateCheckbox(project.isShowAnnouncement())
+                .chooseRadiobutton(project.getRadio())
                 .clickAddProjectButton();
+        return this;
     }
 
-    @Step("Delete project '{name}'")
-    public void deleteProject(String name) {
+    @Step("Delete project '{projectAPI.name}'")
+    public ProjectSteps deleteProject(ProjectAPI projectAPI) {
         projectsPage
-                .openProjectsPage()
-                .isPageOpened()
-                .clickDelete(name)
+                .clickDelete(projectAPI.getName())
                 .activateCheckbox()
                 .clickButtonOk();
+        return this;
     }
 
-    @Step("Update project '{nameOfProject}'")
-    public void updateProject(String nameOfProject, String updatedName, String updatedAnnouncement, boolean updatedShowAnnouncement, String updatedRadio) {
+    @Step("Update project '{projectAPI.name}'")
+    public ProjectSteps updateProject(ProjectAPI projectAPI, Project project) {
         projectsPage
-                .openProjectsPage()
-                .isPageOpened()
-                .clickEdit(nameOfProject)
-                .setNameOfProject(updatedName)
-                .setAnnouncement(updatedAnnouncement)
-                .activateCheckbox(updatedShowAnnouncement)
-                .chooseRadiobutton(updatedRadio)
+                .clickEdit(projectAPI.getName())
+                .setNameOfProject(project.getNameOfProject())
+                .setAnnouncement(project.getAnnouncement())
+                .activateCheckbox(project.isShowAnnouncement())
+                .chooseRadiobutton(project.getRadio())
                 .clickAddProjectButton();
+        return this;
+    }
+
+    public void createProjectAPI(ProjectAPI projectAPI) {
+        projectAdapter.addProject(projectAPI);
+    }
+
+    public void deleteProjectAPI(Project project) {
+        projectAdapter.deleteProject(project.getNameOfProject());
+    }
+
+    public ProjectSteps validateExistentProject(Project project) {
+        assertEquals(projectsPage.numberOfProjectsByName(project.getNameOfProject()), 1);
+        return this;
+    }
+
+    public ProjectSteps validateNonexistentProject(ProjectAPI projectAPI) {
+        assertEquals(projectsPage.numberOfProjectsByName(projectAPI.getName()), 0);
+        return this;
     }
 }

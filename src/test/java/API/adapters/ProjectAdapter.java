@@ -1,7 +1,8 @@
 package API.adapters;
 
-import API.models.Project;
-import API.models.Projects;
+import API.modelsAPI.ProjectAPI;
+import API.modelsAPI.ProjectsAPI;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -11,28 +12,26 @@ public class ProjectAdapter extends BaseAdapter {
     String uriGetAll = "get_projects";
     String uriDel = "delete_project/";
 
-    public int addProject(Project project) {
+    public int addProject(ProjectAPI project) {
         return
                 post(uriAdd, converter.toJson(project))
                         .body().path("id");
     }
 
-    public String getProjects() {
+    public List<ProjectsAPI> getAllProjects() {
         return
-                get(uriGetAll);
+                converter.fromJson(get(uriGetAll), new TypeToken<List<ProjectsAPI>>() {}.getType());
     }
 
-   public int getIdProject(List<Projects> projects, String name) {
-       for (Projects project: projects) {
-           if((project.getName()).equals(name)){
-               return project.getId();
-           }
-       }
-       return 0;
-    }
+    public void deleteProject(String name) {
 
-    public void deleteProject(int id) {
-        post((String.format(uriDel+id)), converter.toJson(id));
+        List<ProjectsAPI> projects = getAllProjects();
+
+        for (ProjectsAPI project : projects) {
+            if ((project.getName()).equals(name)) {
+                post((String.format(uriDel + project.getId())), converter.toJson(project.getId()));
+            }
+        }
     }
 
 }
