@@ -28,6 +28,6 @@ public class DashboardPage extends BasePage {
 
     @Step("Open project '{name}}'")
     public void openProject(String name) {
-        driver.findElement(By.xpath(String.format(PROJECT,name))).click();
+        driver.findElement(By.xpath(String.format(PROJECT, name))).click();
     }
 }

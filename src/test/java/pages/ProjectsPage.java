@@ -6,8 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.PropertyReader;
 
-import static data.TestData.URL;
 import static data.TestData.URL_PROJECTS;
 import static org.testng.Assert.assertEquals;
 
@@ -22,7 +22,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public ProjectsPage openProjectsPage() {
-        driver.get(URL + URL_PROJECTS);
+        driver.get(System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) + URL_PROJECTS);
         return this;
     }
 
@@ -43,6 +43,7 @@ public class ProjectsPage extends BasePage {
         return new DeleteModal(driver);
     }
 
+    //через findElements по имени
     public boolean validateNonexistentProject(String name) {
         try {
             assertEquals(name, driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).getText());
@@ -53,7 +54,7 @@ public class ProjectsPage extends BasePage {
     }
 
     @Step("Click icon edit project '{name}'")
-    public ProjectPage clickEdit (String name) {
+    public ProjectPage clickEdit(String name) {
         driver.findElement(By.xpath(String.format(EDIT_ICON, name))).click();
         return new ProjectPage(driver);
     }
