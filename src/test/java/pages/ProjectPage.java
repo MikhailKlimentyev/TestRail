@@ -13,6 +13,7 @@ public class ProjectPage extends BasePage {
     public static final By ANNOUNCEMENT_TEXTAREA = By.id("announcement");
     public static final By ANNOUNCEMENT_CHECKBOX = By.id("show_announcement");
     public static final String RADIOBUTTON_GROUP = "//div[contains(@class,'row add-project-row')]/descendant::strong[contains(text(),'%s')]";
+    public static final String NAME_OF_CHECKED_RADIOBUTTON = "//div[contains(@class, 'radio')]//input[contains(@checked, 'checked')]//ancestor::label/strong";
     public static final By ADD_PROJECT_BUTTON = By.id("accept");
     public static final By RETURN_TO_DASHBOARD_BUTTON = By.id("navigation-dashboard-top");
     public static final By DASHBOARD_TAB = By.id("navigation-dashboard");
@@ -37,11 +38,19 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
+    public String getNameOfProject() {
+        return driver.findElement(NAME_INPUT).getAttribute("value");
+    }
+
     @Step("Set '{announcement}' into field Announcement")
     public ProjectPage setAnnouncement(String announcement) {
         driver.findElement(ANNOUNCEMENT_TEXTAREA).clear();
         driver.findElement(ANNOUNCEMENT_TEXTAREA).sendKeys(announcement);
         return this;
+    }
+
+    public String getAnnouncement() {
+        return driver.findElement(ANNOUNCEMENT_TEXTAREA).getText();
     }
 
     @Step("Activate checkbox 'Show announcement'")
@@ -58,10 +67,18 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
+    public boolean getStatusCheckbox() {
+        return driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected();
+    }
+
     @Step("Choose radiobutton '{radio}'")
     public ProjectPage chooseRadiobutton(String radio) {
         driver.findElement(By.xpath(String.format(RADIOBUTTON_GROUP, radio))).click();
         return this;
+    }
+
+    public String getValueOfRadiobutton() {
+        return driver.findElement(By.xpath(NAME_OF_CHECKED_RADIOBUTTON)).getText();
     }
 
     @Step("Click button 'Add Project'")

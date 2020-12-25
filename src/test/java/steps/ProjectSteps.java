@@ -25,6 +25,14 @@ public class ProjectSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Open project '{project.nameOfProject}'")
+    public ProjectSteps openProject(Project project) {
+        projectsPage
+                .openProject(project.getNameOfProject())
+                .isPageOpened();
+        return this;
+    }
+
     @Step("Create new project '{project.nameOfProject}'")
     public ProjectSteps createProject(Project project) {
         dashboardPage
@@ -67,13 +75,19 @@ public class ProjectSteps extends BaseSteps {
         projectAdapter.deleteProject(project.getNameOfProject());
     }
 
-    public ProjectSteps validateExistentProject(Project project) {
+    public ProjectSteps validateIsProjectExisted(Project project) {
         assertEquals(projectsPage.numberOfProjectsByName(project.getNameOfProject()), 1);
         return this;
     }
 
-    public ProjectSteps validateNonexistentProject(ProjectAPI projectAPI) {
+    public ProjectSteps validateIsProjectNotExisted(ProjectAPI projectAPI) {
         assertEquals(projectsPage.numberOfProjectsByName(projectAPI.getName()), 0);
+        return this;
+    }
+
+    public ProjectSteps validateIsProjectUpdated(Project project) {
+        Project factProject = new Project(projectPage.getNameOfProject(), projectPage.getAnnouncement(), projectPage.getStatusCheckbox(),projectPage.getValueOfRadiobutton());
+        assertEquals(project,factProject);
         return this;
     }
 }

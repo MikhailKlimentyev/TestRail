@@ -2,6 +2,7 @@ package pages;
 
 import io.qameta.allure.Step;
 import modals.DeleteModal;
+import models.Project;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,6 +33,12 @@ public class ProjectsPage extends BasePage {
     public ProjectsPage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ADD_PROJECT_BUTTON)));
         return this;
+    }
+
+    @Step("Open project '{name}'")
+    public ProjectPage openProject(String name){
+        driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).click();
+        return new ProjectPage(driver);
     }
 
     @Step("Click icon delete project '{name}'")
