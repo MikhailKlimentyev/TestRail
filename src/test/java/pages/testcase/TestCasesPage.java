@@ -13,6 +13,7 @@ public class TestCasesPage extends BasePage {
     }
 
     public static final By ADD_TEST_CASE_BUTTON = By.id("sidebar-cases-add");
+    public static final String NAME_OF_TEST_CASE = "//table//span[contains(text(),'%s')]";
 
     @Override
     public TestCasesPage isPageOpened() {
@@ -26,4 +27,9 @@ public class TestCasesPage extends BasePage {
         return new NewTestCasePage(driver);
     }
 
+    @Step("Open test case '{name}'")
+    public ViewTestCasePage openCreatedTestCase(String name) {
+        driver.findElement(By.xpath(String.format(NAME_OF_TEST_CASE,name))).click();
+        return new ViewTestCasePage(driver);
+    }
 }
