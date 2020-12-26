@@ -4,6 +4,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.PropertyReader;
+
+import static data.TestData.URL_DASHBOARD;
 
 public class DashboardPage extends BasePage {
 
@@ -20,14 +23,21 @@ public class DashboardPage extends BasePage {
         return this;
     }
 
+    @Step("Open Dashboard")
+    public DashboardPage openDashboardPage() {
+        driver.get(System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) + URL_DASHBOARD);
+        return this;
+    }
+
     @Step("Click button 'Add Project'")
     public ProjectPage openProjectPage() {
         driver.findElement(ADD_PROJECT_BUTTON).click();
         return new ProjectPage(driver);
     }
 
-    @Step("Open project '{name}}'")
-    public void openProject(String name) {
+    @Step("Open project '{name}'")
+    public ProjectPage openProject(String name) {
         driver.findElement(By.xpath(String.format(PROJECT, name))).click();
+        return new ProjectPage(driver);
     }
 }

@@ -13,6 +13,7 @@ import pages.LoginPage;
 import pages.ProjectPage;
 import pages.ProjectsPage;
 import steps.ProjectSteps;
+import steps.TestCasesSteps;
 import utils.CapabilitiesGenerator;
 import utils.TestListener;
 
@@ -20,12 +21,10 @@ import utils.TestListener;
 public class BaseTest {
     WebDriver driver;
     LoginPage loginPage;
-    DashboardPage dashboardPage;
-    ProjectPage projectPage;
-    ProjectsPage projectsPage;
     ProjectSteps projectSteps;
+    TestCasesSteps testCasesSteps;
 
-    @BeforeClass
+    @BeforeClass(description = "Initialized WebDriver")
     public void setUp(ITestContext context) {
 
         try {
@@ -39,10 +38,8 @@ public class BaseTest {
         //System.out.println("Setting driver into context with variable name " + variable);
         context.setAttribute(variable, driver);
         loginPage = new LoginPage(driver);
-        dashboardPage = new DashboardPage(driver);
-        projectPage = new ProjectPage(driver);
-        projectsPage = new ProjectsPage(driver);
         projectSteps = new ProjectSteps(driver);
+        testCasesSteps = new TestCasesSteps(driver);
     }
 
     @AfterClass(description = "Close Browser")
