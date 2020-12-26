@@ -67,6 +67,10 @@ public class ProjectSteps extends BaseSteps {
         projectAdapter.deleteProject(project.getNameOfProject());
     }
 
+    public void deleteProjectAPI(ProjectAPI projectAPI) {
+        projectAdapter.deleteProject(projectAPI.getName());
+    }
+
     public ProjectSteps validateExistentProject(Project project) {
         assertEquals(projectsPage.numberOfProjectsByName(project.getNameOfProject()), 1);
         return this;

@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.testcase.TestCasesPage;
 
 public class ProjectPage extends BasePage {
 
     public static final By PROJECT_TAB = By.id("projects-tabs-project");
+    public static final By TEST_CASES_TAB = By.id("navigation-suites");
     public static final By NAME_INPUT = By.id("name");
     public static final By ANNOUNCEMENT_TEXTAREA = By.id("announcement");
     public static final By ANNOUNCEMENT_CHECKBOX = By.id("show_announcement");
@@ -70,6 +72,12 @@ public class ProjectPage extends BasePage {
         jse.executeScript("arguments[0].scrollIntoView()", driver.findElement(ADD_PROJECT_BUTTON));
         driver.findElement(ADD_PROJECT_BUTTON).click();
         return this;
+    }
+
+    @Step("Click tab TEST CASES")
+    public TestCasesPage clickTabTestCases() {
+        driver.findElement(TEST_CASES_TAB).click();
+        return new TestCasesPage(driver);
     }
 
     public DashboardPage returnToDashboardPage() {

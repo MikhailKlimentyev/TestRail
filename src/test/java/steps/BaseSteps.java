@@ -1,22 +1,28 @@
 package steps;
 
 import org.openqa.selenium.WebDriver;
-import pages.DashboardPage;
-import pages.LoginPage;
-import pages.ProjectPage;
-import pages.ProjectsPage;
+import pages.*;
+import pages.testcase.NewTestCasePage;
+import pages.testcase.TestCasesPage;
+import pages.testcase.ViewTestCasePage;
 
 public abstract class BaseSteps {
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProjectPage projectPage;
     ProjectsPage projectsPage;
+    TestCasesPage testCasesPage;
+    NewTestCasePage newTestCasePage;
+    ViewTestCasePage viewTestCasePage;
 
     public BaseSteps(WebDriver driver) {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         projectPage = new ProjectPage(driver);
         projectsPage = new ProjectsPage(driver);
+        testCasesPage = new TestCasesPage(driver);
+        newTestCasePage = new NewTestCasePage(driver);
+        viewTestCasePage = new ViewTestCasePage(driver);
     }
 
 }
