@@ -20,7 +20,7 @@ public class ProjectTest extends Authorization {
         projectSteps
                 .createProject(newProject)
                 .openProjectsPage()
-                .validateExistentProject(newProject)
+                .validateIsProjectExisted(newProject)
                 .deleteProjectAPI(newProject);
     }
 
@@ -32,7 +32,7 @@ public class ProjectTest extends Authorization {
                 .openProjectsPage()
                 .deleteProject(newProjectAPI)
                 .openProjectsPage()
-                .validateNonexistentProject(newProjectAPI);
+                .validateIsProjectNotExisted(newProjectAPI);
     }
 
     @Test(description = "Update project")
@@ -42,7 +42,8 @@ public class ProjectTest extends Authorization {
                 .openProjectsPage()
                 .updateProject(newProjectAPI, newProject)
                 .openProjectsPage()
-                .validateExistentProject(newProject);
+                .openProject(newProject)
+                .validateIsProjectUpdated(newProject);
         projectSteps.deleteProjectAPI(newProject);
     }
 }
