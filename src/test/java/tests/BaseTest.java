@@ -17,6 +17,8 @@ import steps.TestCasesSteps;
 import utils.CapabilitiesGenerator;
 import utils.TestListener;
 
+import java.util.concurrent.TimeUnit;
+
 @Listeners(TestListener.class)
 public class BaseTest {
     WebDriver driver;
@@ -37,6 +39,7 @@ public class BaseTest {
         String variable = "driver";
         //System.out.println("Setting driver into context with variable name " + variable);
         context.setAttribute(variable, driver);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         projectSteps = new ProjectSteps(driver);
         testCasesSteps = new TestCasesSteps(driver);
