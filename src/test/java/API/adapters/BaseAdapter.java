@@ -2,34 +2,28 @@ package API.adapters;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
+import utils.PropertyReader;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseAdapter {
 
-    String url = "https://marymanzhos.testrail.io/index.php?/api/";
+    String urlAPI = System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) + "index.php?/api/v2/";
     Gson converter = new Gson();
 
-    public void auth(String user, String password) {
-        given()
-                .auth()
-                .preemptive()
-                .basic(user, password);
-
-    }
-
-    public Response get(String uri) {
+    public String get(String uri) {
         return
                 given()
                         .auth()
                         .preemptive()
-                        .basic("mary_m@mailinator.com", "ssjBJyMTVDCkt/X4L5Im")
+                        .basic(System.getenv().getOrDefault("user", PropertyReader.getProperty("user")), System.getenv().getOrDefault("pass", PropertyReader.getProperty("pass")))
                         .header("Content-Type", "application/json")
                 .when()
-                        .get(url + uri)
+                        .get(urlAPI + uri)
                 .then()
                         .log().all()
-                        .extract().response();
+                        .statusCode(200)
+                        .extract().body().asString();
 
     }
 
@@ -38,13 +32,14 @@ public class BaseAdapter {
                 given()
                         .auth()
                         .preemptive()
-                        .basic("mary_m@mailinator.com", "ssjBJyMTVDCkt/X4L5Im")
+                        .basic(System.getenv().getOrDefault("user", PropertyReader.getProperty("user")), System.getenv().getOrDefault("pass", PropertyReader.getProperty("pass")))
                         .header("Content-Type", "application/json")
                         .body(body)
-                        .when()
-                        .post(url + uri)
-                        .then()
+                .when()
+                        .post(urlAPI + uri)
+                .then()
                         .log().all()
+                        .statusCode(200)
                         .extract().response();
     }
 

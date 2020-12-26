@@ -19,7 +19,7 @@ public class DeleteModal extends BaseModal {
         return this;
     }
 
-    @Step("Click button OK")
+    @Step("Click button 'OK'")
     public DeleteModal clickButtonOk() {
         driver.findElement(BUTTON_OK).click();
         return this;

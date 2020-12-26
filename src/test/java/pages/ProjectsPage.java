@@ -2,14 +2,16 @@ package pages;
 
 import io.qameta.allure.Step;
 import modals.DeleteModal;
+import models.Project;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.PropertyReader;
 
-import static data.TestData.URL;
+import java.util.List;
+
 import static data.TestData.URL_PROJECTS;
-import static org.testng.Assert.assertEquals;
 
 public class ProjectsPage extends BasePage {
     public static final String NAME_OF_PROJECT = "//a[contains(text(),'%s')]";
@@ -21,8 +23,9 @@ public class ProjectsPage extends BasePage {
         super(driver);
     }
 
+    @Step("Open page with all projects")
     public ProjectsPage openProjectsPage() {
-        driver.get(URL + URL_PROJECTS);
+        driver.get(System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) + URL_PROJECTS);
         return this;
     }
 
@@ -32,9 +35,10 @@ public class ProjectsPage extends BasePage {
         return this;
     }
 
-    public ProjectsPage validateExistentProject(String name) {
-        assertEquals(name, driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).getText(), name + " not found");
-        return this;
+    @Step("Open project '{name}'")
+    public ProjectPage openProject(String name){
+        driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).click();
+        return new ProjectPage(driver);
     }
 
     @Step("Click icon delete project '{name}'")
@@ -43,18 +47,22 @@ public class ProjectsPage extends BasePage {
         return new DeleteModal(driver);
     }
 
-    public boolean validateNonexistentProject(String name) {
-        try {
-            assertEquals(name, driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).getText());
-            return false;
-        } catch (NoSuchElementException e) {
-            return true;
-        }
-    }
-
     @Step("Click icon edit project '{name}'")
-    public ProjectPage clickEdit (String name) {
+    public ProjectPage clickEdit(String name) {
         driver.findElement(By.xpath(String.format(EDIT_ICON, name))).click();
         return new ProjectPage(driver);
+    }
+
+    public int numberOfProjectsByName(String name) {
+
+        List<WebElement> selectorsNamesOfProjects = driver.findElements(By.xpath(String.format(NAME_OF_PROJECT, name)));
+        int count = 0;
+
+        for (WebElement selector : selectorsNamesOfProjects) {
+            if (selector.getText().equals(name)) {
+                count++;
+            }
+        }
+        return count;
     }
 }
