@@ -10,11 +10,8 @@ import static org.testng.Assert.assertEquals;
 
 public class ProjectSteps extends BaseSteps {
 
-    ProjectAdapter projectAdapter;
-
     public ProjectSteps(WebDriver driver) {
         super(driver);
-        projectAdapter = new ProjectAdapter();
     }
 
     @Step("Open page with all projects")

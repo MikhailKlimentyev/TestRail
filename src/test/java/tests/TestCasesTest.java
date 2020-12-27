@@ -54,7 +54,8 @@ public class TestCasesTest extends Authorization{
                 .openTestCasesPage(newProjectAPI)
                 .createTestCase(testCase)
                 .openViewTestCasePage(testCase)
-                .validateTestCase(testCase);
+                .validateTestCase(testCase)
+                .deleteTestCaseAPI(newProjectAPI,testCase);
     }
 
     @DataProvider(name = "Data fo test creating test cases")

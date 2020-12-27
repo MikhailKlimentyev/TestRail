@@ -5,6 +5,7 @@ import API.modelsAPI.ProjectsAPI;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ProjectAdapter extends BaseAdapter {
 
@@ -23,15 +24,21 @@ public class ProjectAdapter extends BaseAdapter {
                 converter.fromJson(get(uriGetAll), new TypeToken<List<ProjectsAPI>>() {}.getType());
     }
 
-    public void deleteProject(String name) {
+    public int getProjectID (String name) {
 
         List<ProjectsAPI> projects = getAllProjects();
 
         for (ProjectsAPI project : projects) {
             if ((project.getName()).equals(name)) {
-                post((String.format(uriDel + project.getId())), converter.toJson(project.getId()));
+                return project.getId();
             }
         }
+        throw new NoSuchElementException ("Project not found");
+
+    }
+
+    public void deleteProject(String name) {
+        post((String.format(uriDel + getProjectID(name))), converter.toJson(getProjectID(name)));
     }
 
 }
