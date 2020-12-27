@@ -3,12 +3,15 @@ package pages.testcase;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
 import utils.Utils;
 
 import java.util.NoSuchElementException;
+
+import static java.lang.Thread.sleep;
 
 public class ViewTestCasePage extends BasePage {
 
@@ -34,23 +37,23 @@ public class ViewTestCasePage extends BasePage {
     }
 
     public String getType(String name) {
-        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getText(), name);
+            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPriority(String name) {
-        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getText(), name);
+            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
-    public String getEstimate(String name) {
-        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getText(), name);
+    public String getEstimate(String name){
+            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getReferences(String name) {
-        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getText(), name);
+            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getAutomationType(String name) {
-        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getText(), name);
+            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPreconditions(String name) {

@@ -30,6 +30,14 @@ public class ProjectSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Open project '{projectAPI.name}'")
+    public ProjectSteps openProject(ProjectAPI projectAPI) {
+        projectsPage
+                .openProject(projectAPI.getName())
+                .isPageOpened();
+        return this;
+    }
+
     @Step("Create new project '{project.nameOfProject}'")
     public ProjectSteps createProject(Project project) {
         dashboardPage

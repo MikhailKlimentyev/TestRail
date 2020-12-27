@@ -91,7 +91,10 @@ public class TestCasesTest extends Authorization{
                 .openTestCasesPage(newProjectAPI)
                 .createTestCase(testCase1)
                 .openViewTestCasePage(testCase1)
-                .updateTestCase(testCase1,testCaseUpdated)
+                .updateTestCase(testCaseUpdated);
+        testCasesSteps
+                .openTestCasesPage(newProjectAPI)
+                .openViewTestCasePage(testCaseUpdated)
                 .validateTestCase(testCaseUpdated)
                 .deleteTestCaseAPI(newProjectAPI,testCaseUpdated);
     }

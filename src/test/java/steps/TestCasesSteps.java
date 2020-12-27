@@ -58,8 +58,6 @@ public class TestCasesSteps extends BaseSteps{
 
     public TestCasesSteps validateTestCase(TestCase testCase) {
 
-        viewTestCasePage.isPageOpened();
-
         TestCase testCaseFact  = TestCase.builder()
                 .title(viewTestCasePage.getTitle())
                 .type(viewTestCasePage.getType("Type"))
@@ -100,7 +98,7 @@ public class TestCasesSteps extends BaseSteps{
     }
 
     @Step("Update test case 'testCase.title'")
-    public TestCasesSteps updateTestCase (TestCase testCase, TestCase testCaseUpdate) {
+    public TestCasesSteps updateTestCase (TestCase testCaseUpdate) {
         viewTestCasePage
                 .clickButtonEdit()
                 .isPageOpened()
