@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static java.lang.Thread.sleep;
+
 public class TestCasesTest extends Authorization{
 
     ProjectAPI newProjectAPI = ProjectAPI.builder()
@@ -86,16 +88,16 @@ public class TestCasesTest extends Authorization{
     }
 
     @Test(description = "Update test case")
-    public void isTestCaseUpdated() {
+    public void isTestCaseUpdated() throws InterruptedException {
         testCasesSteps
                 .openTestCasesPage(newProjectAPI)
                 .createTestCase(testCase1)
                 .openViewTestCasePage(testCase1)
                 .updateTestCase(testCaseUpdated);
-        testCasesSteps
-                .openTestCasesPage(newProjectAPI)
-                .openViewTestCasePage(testCaseUpdated)
-                .validateTestCase(testCaseUpdated)
+
+        sleep(180);
+
+        testCasesSteps.validateTestCase(testCaseUpdated)
                 .deleteTestCaseAPI(newProjectAPI,testCaseUpdated);
     }
 

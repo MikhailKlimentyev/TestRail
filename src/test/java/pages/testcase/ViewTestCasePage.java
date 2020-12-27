@@ -29,6 +29,7 @@ public class ViewTestCasePage extends BasePage {
     @Override
     public ViewTestCasePage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE_OF_TEST_CASE));
+       // driver.navigate().refresh();
         return this;
     }
 
@@ -37,26 +38,32 @@ public class ViewTestCasePage extends BasePage {
     }
 
     public String getType(String name) {
-            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
+        //wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
+        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPriority(String name) {
+       // wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
             return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getEstimate(String name){
+        //wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
             return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getReferences(String name) {
+       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
             return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getAutomationType(String name) {
+       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
             return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPreconditions(String name) {
+        //wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
         if(driver.findElement(By.xpath(String.format(PRECONDITION_OF_TEST_CASE, name))).getText().equals(name)){
             return driver.findElement(By.xpath(String.format(PRECONDITION_OF_TEST_CASE, name))).getText();
         }
@@ -64,6 +71,7 @@ public class ViewTestCasePage extends BasePage {
     }
 
     public String getSteps(String name) {
+      //  wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
         if(driver.findElement(By.xpath(String.format(STEPS_OF_TEST_CASE, name))).getText().equals(name)){
             return driver.findElement(By.xpath(String.format(STEPS_OF_TEST_CASE, name))).getText();
         }
@@ -71,6 +79,7 @@ public class ViewTestCasePage extends BasePage {
     }
 
     public String getExpectedResult(String name) {
+       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
         if(driver.findElement(By.xpath(String.format(EXPECTED_RESULT_OF_TEST_CASE, name))).getText().equals(name)){
             return driver.findElement(By.xpath(String.format(EXPECTED_RESULT_OF_TEST_CASE, name))).getText();
         }
