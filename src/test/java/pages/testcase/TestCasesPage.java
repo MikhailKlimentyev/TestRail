@@ -3,8 +3,12 @@ package pages.testcase;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
+import utils.Utils;
+
+import java.util.List;
 
 public class TestCasesPage extends BasePage {
 
@@ -31,5 +35,9 @@ public class TestCasesPage extends BasePage {
     public ViewTestCasePage openCreatedTestCase(String name) {
         driver.findElement(By.xpath(String.format(NAME_OF_TEST_CASE,name))).click();
         return new ViewTestCasePage(driver);
+    }
+
+    public int numberOfTestCasesByName(String name) {
+        return Utils.numberOfIssuesByName(driver.findElements(By.xpath(String.format(NAME_OF_TEST_CASE, name))), name);
     }
 }

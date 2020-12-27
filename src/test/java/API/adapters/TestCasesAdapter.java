@@ -1,6 +1,5 @@
 package API.adapters;
 
-import API.modelsAPI.ProjectsAPI;
 import API.modelsAPI.TestCasesAPI;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,7 +29,7 @@ public class TestCasesAdapter extends BaseAdapter{
     }
 
     public void deleteTestCase(int projectID, String name) {
-        post((String.format(uriDelTestCase + getTestCaseID(projectID, name))), "");
+        post((uriDelTestCase + getTestCaseID(projectID, name)), "");
     }
 
 

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.PropertyReader;
+import utils.Utils;
 
 import java.util.List;
 
@@ -54,15 +55,6 @@ public class ProjectsPage extends BasePage {
     }
 
     public int numberOfProjectsByName(String name) {
-
-        List<WebElement> selectorsNamesOfProjects = driver.findElements(By.xpath(String.format(NAME_OF_PROJECT, name)));
-        int count = 0;
-
-        for (WebElement selector : selectorsNamesOfProjects) {
-            if (selector.getText().equals(name)) {
-                count++;
-            }
-        }
-        return count;
+        return Utils.numberOfIssuesByName(driver.findElements(By.xpath(String.format(NAME_OF_PROJECT, name))), name);
     }
 }

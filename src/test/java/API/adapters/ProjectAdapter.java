@@ -38,7 +38,7 @@ public class ProjectAdapter extends BaseAdapter {
     }
 
     public void deleteProject(String name) {
-        post((String.format(uriDel + getProjectID(name))), converter.toJson(getProjectID(name)));
+        post((uriDel + getProjectID(name)), converter.toJson(getProjectID(name)));
     }
 
 }

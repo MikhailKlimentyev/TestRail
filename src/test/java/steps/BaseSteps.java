@@ -9,6 +9,7 @@ import pages.testcase.TestCasesPage;
 import pages.testcase.ViewTestCasePage;
 
 public abstract class BaseSteps {
+
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProjectPage projectPage;

@@ -19,28 +19,34 @@ public class TestCasesTest extends Authorization{
     TestCase testCase1 = new TestCase("First Test Case", "Functional","Critical","2 hours",
             "link for wiki","None",
             "Authorize in APP",
-            "Steps",
+            "Go to link",
             "Page is added");
     TestCase testCase2 = new TestCase("Second Test Case", "Regression","High","1 hour",
             "link for wiki","Ranorex",
             "Authorize in APP",
-            "Steps",
+            "Go to APP",
             "Page is added");
     TestCase testCase3 = new TestCase("Third Test Case", "Acceptance","Medium","30 minutes",
             "link for wiki","None",
             "Precondition",
-            "Steps",
+            "Click button",
             "Page is added");
     TestCase testCase4 = new TestCase("Fourth Test Case", "Usability","Low","15 minutes",
             "link for wiki","Ranorex",
             "Precondition",
-            "Steps",
+            "Log out",
             "Page is added");
     TestCase testCase5 = new TestCase("Fifth Test Case", "Compatibility","Medium","4 hours",
             "link for wiki","Ranorex",
             "Create admin",
-            "Steps",
+            "Authorize",
             "Page is added");
+
+    TestCase testCaseUpdated = new TestCase("Updated Test Case", "Security","Critical","7 hours",
+            "new link for wiki","None",
+            "UPD Create admin",
+            "UPD Click tab",
+            "UPD Page is added");
 
     @BeforeClass
     public void createProject() {
@@ -67,6 +73,27 @@ public class TestCasesTest extends Authorization{
                 {testCase4},
                 {testCase5}
         };
+    }
+
+    @Test(description = "Delete test case")
+    public void isTestCaseDeleted() {
+        testCasesSteps
+                .openTestCasesPage(newProjectAPI)
+                .createTestCase(testCase1)
+                .openViewTestCasePage(testCase1)
+                .deleteTestCase(testCase1)
+                .validateIsTestCaseDeleted(testCase1);
+    }
+
+    @Test(description = "Update test case")
+    public void isTestCaseUpdated() {
+        testCasesSteps
+                .openTestCasesPage(newProjectAPI)
+                .createTestCase(testCase1)
+                .openViewTestCasePage(testCase1)
+                .updateTestCase(testCase1,testCaseUpdated)
+                .validateTestCase(testCaseUpdated)
+                .deleteTestCaseAPI(newProjectAPI,testCaseUpdated);
     }
 
     @AfterClass

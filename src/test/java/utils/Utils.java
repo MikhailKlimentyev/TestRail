@@ -1,7 +1,11 @@
 package utils;
 
 import models.TestCase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Utils {
@@ -26,5 +30,17 @@ public class Utils {
         }
 
         return testCase;
+    }
+
+    public static int numberOfIssuesByName(List<WebElement> locators, String name) {
+
+        int count = 0;
+
+        for (WebElement locator : locators) {
+            if (locator.getText().equals(name)) {
+                count++;
+            }
+        }
+        return count;
     }
 }

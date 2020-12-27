@@ -58,11 +58,19 @@ public class TestCasesSteps extends BaseSteps{
 
     public TestCasesSteps validateTestCase(TestCase testCase) {
 
-        TestCase testCaseFact = new TestCase
-                (viewTestCasePage.getTitle(), viewTestCasePage.getType("Type"), viewTestCasePage.getPriority("Priority"),
-                viewTestCasePage.getEstimate("Estimate"), viewTestCasePage.getReferences("References"),
-                viewTestCasePage.getAutomationType("Automation Type"),
-                        viewTestCasePage.getPreconditions(), viewTestCasePage.getSteps(), viewTestCasePage.getExpectedResult());
+        viewTestCasePage.isPageOpened();
+
+        TestCase testCaseFact  = TestCase.builder()
+                .title(viewTestCasePage.getTitle())
+                .type(viewTestCasePage.getType("Type"))
+                .priority(viewTestCasePage.getPriority("Priority"))
+                .estimate(viewTestCasePage.getEstimate("Estimate"))
+                .references(viewTestCasePage.getReferences("References"))
+                .automationType(viewTestCasePage.getAutomationType("Automation Type"))
+                .preconditions(viewTestCasePage.getPreconditions(testCase.getPreconditions()))
+                .steps(viewTestCasePage.getSteps(testCase.getSteps()))
+                .expectedResult(viewTestCasePage.getExpectedResult(testCase.getExpectedResult()))
+                .build();
 
         Utils.parseTestCase(testCase);
 
@@ -70,17 +78,47 @@ public class TestCasesSteps extends BaseSteps{
         return this;
     }
 
-    //public void createProjectAPI(ProjectAPI projectAPI) {
-    //    projectAdapter.addProject(projectAPI);
-    //}
-
     public void deleteTestCaseAPI(ProjectAPI projectAPI, TestCase testCase) {
         testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(projectAPI.getName()),testCase.getTitle());
     }
 
-    //public void deleteProjectAPI(ProjectAPI projectAPI) {
-    //    projectAdapter.deleteProject(projectAPI.getName());
-    //}
+    @Step("Delete test case 'testCase.title'")
+    public TestCasesSteps deleteTestCase (TestCase testCase) {
+        viewTestCasePage
+                .clickButtonEdit()
+                .isPageOpened()
+                .clickButtonDelete()
+                .isModalOpened()
+                .clickButtonOk()
+                .isPageOpened();
+        return this;
+    }
+
+    public TestCasesSteps validateIsTestCaseDeleted(TestCase testCase) {
+        assertEquals(testCasesPage.numberOfTestCasesByName(testCase.getTitle()), 0);
+        return this;
+    }
+
+    @Step("Update test case 'testCase.title'")
+    public TestCasesSteps updateTestCase (TestCase testCase, TestCase testCaseUpdate) {
+        viewTestCasePage
+                .clickButtonEdit()
+                .isPageOpened()
+                .setTitle(testCaseUpdate.getTitle())
+                .setType(testCaseUpdate.getType())
+                .setPriority(testCaseUpdate.getPriority())
+                .setEstimate(testCaseUpdate.getEstimate())
+                .setReferences(testCaseUpdate.getReferences())
+                .setAutomationType(testCaseUpdate.getAutomationType())
+                .setPreconditions(testCaseUpdate.getPreconditions())
+                .setSteps(testCaseUpdate.getSteps())
+                .setExpectedResult(testCaseUpdate.getExpectedResult())
+                .clickButtonAddTestCase()
+                .isPageOpened();
+        return this;
+    }
+
+
 }
 
 

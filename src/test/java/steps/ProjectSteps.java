@@ -47,6 +47,7 @@ public class ProjectSteps extends BaseSteps {
     public ProjectSteps deleteProject(ProjectAPI projectAPI) {
         projectsPage
                 .clickDelete(projectAPI.getName())
+                .isModalOpened()
                 .activateCheckbox()
                 .clickButtonOk();
         return this;
