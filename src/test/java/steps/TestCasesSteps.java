@@ -1,7 +1,9 @@
 package steps;
 
+import API.adapters.TestCasesAdapter;
 import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
+import models.Project;
 import models.TestCase;
 import org.openqa.selenium.WebDriver;
 import utils.Utils;
@@ -68,6 +70,17 @@ public class TestCasesSteps extends BaseSteps{
         return this;
     }
 
+    //public void createProjectAPI(ProjectAPI projectAPI) {
+    //    projectAdapter.addProject(projectAPI);
+    //}
+
+    public void deleteTestCaseAPI(ProjectAPI projectAPI, TestCase testCase) {
+        testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(projectAPI.getName()),testCase.getTitle());
+    }
+
+    //public void deleteProjectAPI(ProjectAPI projectAPI) {
+    //    projectAdapter.deleteProject(projectAPI.getName());
+    //}
 }
 
 

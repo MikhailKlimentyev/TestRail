@@ -1,5 +1,7 @@
 package steps;
 
+import API.adapters.ProjectAdapter;
+import API.adapters.TestCasesAdapter;
 import org.openqa.selenium.WebDriver;
 import pages.*;
 import pages.testcase.NewTestCasePage;
@@ -14,6 +16,8 @@ public abstract class BaseSteps {
     TestCasesPage testCasesPage;
     NewTestCasePage newTestCasePage;
     ViewTestCasePage viewTestCasePage;
+    ProjectAdapter projectAdapter;
+    TestCasesAdapter testCasesAdapter;
 
     public BaseSteps(WebDriver driver) {
         loginPage = new LoginPage(driver);
@@ -23,6 +27,8 @@ public abstract class BaseSteps {
         testCasesPage = new TestCasesPage(driver);
         newTestCasePage = new NewTestCasePage(driver);
         viewTestCasePage = new ViewTestCasePage(driver);
+        projectAdapter = new ProjectAdapter();
+        testCasesAdapter = new TestCasesAdapter();
     }
 
 }
