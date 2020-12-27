@@ -6,7 +6,6 @@ import modals.DeleteTestCaseModal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class NewTestCasePage extends BasePage {
@@ -39,13 +38,13 @@ public class NewTestCasePage extends BasePage {
 
     @Step("Set '{type}' into dropdown Type")
     public NewTestCasePage setType(String type) {
-        new DropDown(driver,"Type").select(type);
+        new DropDown(driver, "Type").select(type);
         return this;
     }
 
     @Step("Set '{priority}' into dropdown Priority")
     public NewTestCasePage setPriority(String priority) {
-        new DropDown(driver,"Priority").select(priority);
+        new DropDown(driver, "Priority").select(priority);
         return this;
     }
 
@@ -65,7 +64,7 @@ public class NewTestCasePage extends BasePage {
 
     @Step("Set '{automationType}' into dropdown Automation Type")
     public NewTestCasePage setAutomationType(String automationType) {
-        new DropDown(driver,"Automation Type").select(automationType);
+        new DropDown(driver, "Automation Type").select(automationType);
         return this;
     }
 

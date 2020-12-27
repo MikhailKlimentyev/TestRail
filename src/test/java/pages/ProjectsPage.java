@@ -2,15 +2,11 @@ package pages;
 
 import io.qameta.allure.Step;
 import modals.DeleteModal;
-import models.Project;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.PropertyReader;
 import utils.Utils;
-
-import java.util.List;
 
 import static data.TestData.URL_PROJECTS;
 
@@ -37,7 +33,7 @@ public class ProjectsPage extends BasePage {
     }
 
     @Step("Open project '{name}'")
-    public ProjectPage openProject(String name){
+    public ProjectPage openProject(String name) {
         driver.findElement(By.xpath(String.format(NAME_OF_PROJECT, name))).click();
         return new ProjectPage(driver);
     }

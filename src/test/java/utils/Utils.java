@@ -1,8 +1,6 @@
 package utils;
 
 import models.TestCase;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -13,7 +11,7 @@ public class Utils {
     public static String parseStr(String s, String name) {
         String[] text = s.split("\\n");
         for (int i = 0; i < text.length; i++) {
-            if (!text[i].equals(name)){
+            if (!text[i].equals(name)) {
                 return text[i];
             }
         }
@@ -25,7 +23,7 @@ public class Utils {
             testCase.setEstimate("None");
         }
 
-        if (testCase.getReferences().equals("")){
+        if (testCase.getReferences().equals("")) {
             testCase.setReferences("None");
         }
 

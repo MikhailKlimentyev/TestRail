@@ -2,16 +2,12 @@ package pages.testcase;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
 import utils.Utils;
 
 import java.util.NoSuchElementException;
-
-import static java.lang.Thread.sleep;
 
 public class ViewTestCasePage extends BasePage {
 
@@ -21,6 +17,7 @@ public class ViewTestCasePage extends BasePage {
     public static final String STEPS_OF_TEST_CASE = "//p[contains(text(),'%s')]";
     public static final String EXPECTED_RESULT_OF_TEST_CASE = "//p[contains(text(),'%s')]";
     public static final By EDIT_BUTTON = By.xpath("//a[contains(@class,'button-edit')]");
+    public static final By EDIT_MESSAGE_BUTTON = By.xpath("//div[contains(text(),'Successfully updated the test case.')]");
 
     public ViewTestCasePage(WebDriver driver) {
         super(driver);
@@ -29,58 +26,54 @@ public class ViewTestCasePage extends BasePage {
     @Override
     public ViewTestCasePage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE_OF_TEST_CASE));
-       // driver.navigate().refresh();
+        return this;
+    }
+
+    public ViewTestCasePage isMessageShown() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(EDIT_BUTTON));
         return this;
     }
 
     public String getTitle() {
-       return driver.findElement(TITLE_OF_TEST_CASE).getText();
+        return driver.findElement(TITLE_OF_TEST_CASE).getText();
     }
 
     public String getType(String name) {
-        //wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
         return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPriority(String name) {
-       // wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
-            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
+        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
-    public String getEstimate(String name){
-        //wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))))));
-            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
+    public String getEstimate(String name) {
+        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getReferences(String name) {
-       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
-            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
+        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getAutomationType(String name) {
-       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
-            return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
+        return Utils.parseStr(driver.findElement(By.xpath(String.format(BLOCK_OF_TEST_CASE, name))).getAttribute("innerText"), name);
     }
 
     public String getPreconditions(String name) {
-        //wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
-        if(driver.findElement(By.xpath(String.format(PRECONDITION_OF_TEST_CASE, name))).getText().equals(name)){
+        if (driver.findElement(By.xpath(String.format(PRECONDITION_OF_TEST_CASE, name))).getText().equals(name)) {
             return driver.findElement(By.xpath(String.format(PRECONDITION_OF_TEST_CASE, name))).getText();
         }
         throw new NoSuchElementException("Preconditions not found");
     }
 
     public String getSteps(String name) {
-      //  wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
-        if(driver.findElement(By.xpath(String.format(STEPS_OF_TEST_CASE, name))).getText().equals(name)){
+        if (driver.findElement(By.xpath(String.format(STEPS_OF_TEST_CASE, name))).getText().equals(name)) {
             return driver.findElement(By.xpath(String.format(STEPS_OF_TEST_CASE, name))).getText();
         }
         throw new NoSuchElementException("Steps not found");
     }
 
     public String getExpectedResult(String name) {
-       // wait.until(ExpectedConditions.presenceOfElementLocated(TITLE_OF_TEST_CASE));
-        if(driver.findElement(By.xpath(String.format(EXPECTED_RESULT_OF_TEST_CASE, name))).getText().equals(name)){
+        if (driver.findElement(By.xpath(String.format(EXPECTED_RESULT_OF_TEST_CASE, name))).getText().equals(name)) {
             return driver.findElement(By.xpath(String.format(EXPECTED_RESULT_OF_TEST_CASE, name))).getText();
         }
         throw new NoSuchElementException("Expected Result not found");

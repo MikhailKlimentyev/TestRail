@@ -1,6 +1,5 @@
 package steps;
 
-import API.adapters.ProjectAdapter;
 import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
 import models.Project;
@@ -84,7 +83,7 @@ public class ProjectSteps extends BaseSteps {
     public void deleteProjectAPI(ProjectAPI projectAPI) {
         projectAdapter.deleteProject(projectAPI.getName());
     }
-  
+
     public ProjectSteps validateIsProjectExisted(Project project) {
         assertEquals(projectsPage.numberOfProjectsByName(project.getNameOfProject()), 1);
         return this;
@@ -96,8 +95,8 @@ public class ProjectSteps extends BaseSteps {
     }
 
     public ProjectSteps validateIsProjectUpdated(Project project) {
-        Project factProject = new Project(projectPage.getNameOfProject(), projectPage.getAnnouncement(), projectPage.getStatusCheckbox(),projectPage.getValueOfRadiobutton());
-        assertEquals(project,factProject);
+        Project factProject = new Project(projectPage.getNameOfProject(), projectPage.getAnnouncement(), projectPage.getStatusCheckbox(), projectPage.getValueOfRadiobutton());
+        assertEquals(project, factProject);
         return this;
     }
 }

@@ -18,9 +18,9 @@ public class BaseAdapter {
                         .preemptive()
                         .basic(System.getenv().getOrDefault("user", PropertyReader.getProperty("user")), System.getenv().getOrDefault("pass", PropertyReader.getProperty("pass")))
                         .header("Content-Type", "application/json")
-                .when()
+                        .when()
                         .get(urlAPI + uri)
-                .then()
+                        .then()
                         .log().all()
                         .statusCode(200)
                         .extract().body().asString();
@@ -35,9 +35,9 @@ public class BaseAdapter {
                         .basic(System.getenv().getOrDefault("user", PropertyReader.getProperty("user")), System.getenv().getOrDefault("pass", PropertyReader.getProperty("pass")))
                         .header("Content-Type", "application/json")
                         .body(body)
-                .when()
+                        .when()
                         .post(urlAPI + uri)
-                .then()
+                        .then()
                         .log().all()
                         .statusCode(200)
                         .extract().response();
