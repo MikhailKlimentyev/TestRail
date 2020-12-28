@@ -9,7 +9,7 @@ public class ProjectTest extends Authorization {
     Project newProject = new Project("New Project", "Project for test",
             true, "Use a single repository for all cases (recommended)");
     ProjectAPI newProjectAPI = ProjectAPI.builder()
-            .name("Marys Project")
+            .name("New Project from API")
             .announcement("project fo test create project")
             .showAnnouncement(true)
             .suiteMode(1)

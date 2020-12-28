@@ -21,10 +21,11 @@ public class ProjectAdapter extends BaseAdapter {
 
     public List<ProjectsAPI> getAllProjects() {
         return
-                converter.fromJson(get(uriGetAll), new TypeToken<List<ProjectsAPI>>() {}.getType());
+                converter.fromJson(get(uriGetAll), new TypeToken<List<ProjectsAPI>>() {
+                }.getType());
     }
 
-    public int getProjectID (String name) {
+    public int getProjectID(String name) {
 
         List<ProjectsAPI> projects = getAllProjects();
 
@@ -33,12 +34,12 @@ public class ProjectAdapter extends BaseAdapter {
                 return project.getId();
             }
         }
-        throw new NoSuchElementException ("Project not found");
+        throw new NoSuchElementException("Project not found");
 
     }
 
     public void deleteProject(String name) {
-        post((String.format(uriDel + getProjectID(name))), converter.toJson(getProjectID(name)));
+        post((uriDel + getProjectID(name)), converter.toJson(getProjectID(name)));
     }
 
 }

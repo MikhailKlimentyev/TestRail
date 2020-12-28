@@ -33,6 +33,10 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
+    public String getNameOfProject() {
+        return driver.findElement(NAME_INPUT).getAttribute("value");
+    }
+
     @Step("Set '{name}' into field Name")
     public ProjectPage setNameOfProject(String name) {
         driver.findElement(NAME_INPUT).clear();
@@ -40,8 +44,8 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    public String getNameOfProject() {
-        return driver.findElement(NAME_INPUT).getAttribute("value");
+    public String getAnnouncement() {
+        return driver.findElement(ANNOUNCEMENT_TEXTAREA).getText();
     }
 
     @Step("Set '{announcement}' into field Announcement")
@@ -49,10 +53,6 @@ public class ProjectPage extends BasePage {
         driver.findElement(ANNOUNCEMENT_TEXTAREA).clear();
         driver.findElement(ANNOUNCEMENT_TEXTAREA).sendKeys(announcement);
         return this;
-    }
-
-    public String getAnnouncement() {
-        return driver.findElement(ANNOUNCEMENT_TEXTAREA).getText();
     }
 
     @Step("Activate checkbox 'Show announcement'")

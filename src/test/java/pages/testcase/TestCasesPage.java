@@ -5,15 +5,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
+import utils.Utils;
 
 public class TestCasesPage extends BasePage {
 
+    public static final By ADD_TEST_CASE_BUTTON = By.id("sidebar-cases-add");
+    public static final String NAME_OF_TEST_CASE = "//table//span[contains(text(),'%s')]";
     public TestCasesPage(WebDriver driver) {
         super(driver);
     }
-
-    public static final By ADD_TEST_CASE_BUTTON = By.id("sidebar-cases-add");
-    public static final String NAME_OF_TEST_CASE = "//table//span[contains(text(),'%s')]";
 
     @Override
     public TestCasesPage isPageOpened() {
@@ -29,7 +29,11 @@ public class TestCasesPage extends BasePage {
 
     @Step("Open test case '{name}'")
     public ViewTestCasePage openCreatedTestCase(String name) {
-        driver.findElement(By.xpath(String.format(NAME_OF_TEST_CASE,name))).click();
+        driver.findElement(By.xpath(String.format(NAME_OF_TEST_CASE, name))).click();
         return new ViewTestCasePage(driver);
+    }
+
+    public int numberOfTestCasesByName(String name) {
+        return Utils.numberOfIssuesByName(driver.findElements(By.xpath(String.format(NAME_OF_TEST_CASE, name))), name);
     }
 }

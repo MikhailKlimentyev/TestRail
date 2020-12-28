@@ -3,12 +3,16 @@ package steps;
 import API.adapters.ProjectAdapter;
 import API.adapters.TestCasesAdapter;
 import org.openqa.selenium.WebDriver;
-import pages.*;
+import pages.DashboardPage;
+import pages.LoginPage;
+import pages.ProjectPage;
+import pages.ProjectsPage;
 import pages.testcase.NewTestCasePage;
 import pages.testcase.TestCasesPage;
 import pages.testcase.ViewTestCasePage;
 
 public abstract class BaseSteps {
+
     LoginPage loginPage;
     DashboardPage dashboardPage;
     ProjectPage projectPage;

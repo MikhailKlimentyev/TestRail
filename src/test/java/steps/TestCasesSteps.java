@@ -1,18 +1,16 @@
 package steps;
 
-import API.adapters.TestCasesAdapter;
 import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
-import models.Project;
 import models.TestCase;
 import org.openqa.selenium.WebDriver;
 import utils.Utils;
 
 import static org.testng.Assert.assertEquals;
 
-public class TestCasesSteps extends BaseSteps{
+public class TestCasesSteps extends BaseSteps {
 
-    public TestCasesSteps(WebDriver driver){
+    public TestCasesSteps(WebDriver driver) {
         super(driver);
     }
 
@@ -28,7 +26,7 @@ public class TestCasesSteps extends BaseSteps{
     }
 
     @Step("Create test case 'testCase.title'")
-    public TestCasesSteps createTestCase (TestCase testCase) {
+    public TestCasesSteps createTestCase(TestCase testCase) {
         testCasesPage
                 .openNewTestCasePage()
                 .isPageOpened()
@@ -58,29 +56,65 @@ public class TestCasesSteps extends BaseSteps{
 
     public TestCasesSteps validateTestCase(TestCase testCase) {
 
-        TestCase testCaseFact = new TestCase
-                (viewTestCasePage.getTitle(), viewTestCasePage.getType("Type"), viewTestCasePage.getPriority("Priority"),
-                viewTestCasePage.getEstimate("Estimate"), viewTestCasePage.getReferences("References"),
-                viewTestCasePage.getAutomationType("Automation Type"),
-                        viewTestCasePage.getPreconditions(), viewTestCasePage.getSteps(), viewTestCasePage.getExpectedResult());
+        TestCase testCaseFact = TestCase.builder()
+                .title(viewTestCasePage.getTitle())
+                .type(viewTestCasePage.getType("Type"))
+                .priority(viewTestCasePage.getPriority("Priority"))
+                .estimate(viewTestCasePage.getEstimate("Estimate"))
+                .references(viewTestCasePage.getReferences("References"))
+                .automationType(viewTestCasePage.getAutomationType("Automation Type"))
+                .preconditions(viewTestCasePage.getPreconditions(testCase.getPreconditions()))
+                .steps(viewTestCasePage.getSteps(testCase.getSteps()))
+                .expectedResult(viewTestCasePage.getExpectedResult(testCase.getExpectedResult()))
+                .build();
 
         Utils.parseTestCase(testCase);
 
-        assertEquals(testCaseFact,testCase);
+        assertEquals(testCaseFact, testCase);
         return this;
     }
 
-    //public void createProjectAPI(ProjectAPI projectAPI) {
-    //    projectAdapter.addProject(projectAPI);
-    //}
-
     public void deleteTestCaseAPI(ProjectAPI projectAPI, TestCase testCase) {
-        testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(projectAPI.getName()),testCase.getTitle());
+        testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(projectAPI.getName()), testCase.getTitle());
     }
 
-    //public void deleteProjectAPI(ProjectAPI projectAPI) {
-    //    projectAdapter.deleteProject(projectAPI.getName());
-    //}
+    @Step("Delete test case 'testCase.title'")
+    public TestCasesSteps deleteTestCase(TestCase testCase) {
+        viewTestCasePage
+                .clickButtonEdit()
+                .isPageOpened()
+                .clickButtonDelete()
+                .isModalOpened()
+                .clickButtonOk()
+                .isPageOpened();
+        return this;
+    }
+
+    public TestCasesSteps validateIsTestCaseDeleted(TestCase testCase) {
+        assertEquals(testCasesPage.numberOfTestCasesByName(testCase.getTitle()), 0);
+        return this;
+    }
+
+    @Step("Update test case 'testCase.title'")
+    public TestCasesSteps updateTestCase(TestCase testCaseUpdate) {
+        viewTestCasePage
+                .clickButtonEdit()
+                .isPageOpened()
+                .setTitle(testCaseUpdate.getTitle())
+                .setType(testCaseUpdate.getType())
+                .setPriority(testCaseUpdate.getPriority())
+                .setEstimate(testCaseUpdate.getEstimate())
+                .setReferences(testCaseUpdate.getReferences())
+                .setAutomationType(testCaseUpdate.getAutomationType())
+                .setPreconditions(testCaseUpdate.getPreconditions())
+                .setSteps(testCaseUpdate.getSteps())
+                .setExpectedResult(testCaseUpdate.getExpectedResult())
+                .clickButtonAddTestCase()
+                .isMessageShown();
+        return this;
+    }
+
+
 }
 
 

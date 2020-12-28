@@ -3,6 +3,7 @@ package modals;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DeleteModal extends BaseModal {
 
@@ -11,6 +12,12 @@ public class DeleteModal extends BaseModal {
 
     public DeleteModal(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public DeleteModal isModalOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(BUTTON_OK));
+        return this;
     }
 
     @Step("Activate checkbox")
