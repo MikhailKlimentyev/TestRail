@@ -1,10 +1,11 @@
-package pages;
+package pages.project;
 
 import io.qameta.allure.Step;
 import modals.DeleteModal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.BasePage;
 import utils.PropertyReader;
 import utils.Utils;
 

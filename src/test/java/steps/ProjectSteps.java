@@ -2,11 +2,13 @@ package steps;
 
 import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import models.Project;
 import org.openqa.selenium.WebDriver;
 
 import static org.testng.Assert.assertEquals;
 
+@Log4j2
 public class ProjectSteps extends BaseSteps {
 
     public ProjectSteps(WebDriver driver) {
@@ -15,6 +17,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Open page with all projects")
     public ProjectSteps openProjectsPage() {
+        log.info("Open page with all projects");
         projectsPage
                 .openProjectsPage()
                 .isPageOpened();
@@ -23,6 +26,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Open project '{project.nameOfProject}'")
     public ProjectSteps openProject(Project project) {
+        log.info("Open project(create from UI) " + project.getNameOfProject());
         projectsPage
                 .openProject(project.getNameOfProject())
                 .isPageOpened();
@@ -31,6 +35,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Open project '{projectAPI.name}'")
     public ProjectSteps openProject(ProjectAPI projectAPI) {
+        log.info("Open project(create from API) " + projectAPI.getName());
         projectsPage
                 .openProject(projectAPI.getName())
                 .isPageOpened();
@@ -39,6 +44,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Create new project '{project.nameOfProject}'")
     public ProjectSteps createProject(Project project) {
+        log.info("Create new project " + project.getNameOfProject());
         dashboardPage
                 .openProjectPage()
                 .isPageOpened()
@@ -52,6 +58,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Delete project '{projectAPI.name}'")
     public ProjectSteps deleteProject(ProjectAPI projectAPI) {
+        log.info("Delete project(created from API) " + projectAPI.getName());
         projectsPage
                 .clickDelete(projectAPI.getName())
                 .isModalOpened()
@@ -62,6 +69,7 @@ public class ProjectSteps extends BaseSteps {
 
     @Step("Update project '{projectAPI.name}'")
     public ProjectSteps updateProject(ProjectAPI projectAPI, Project project) {
+        log.info("Update project(created from API) " + projectAPI.getName());
         projectsPage
                 .clickEdit(projectAPI.getName())
                 .setNameOfProject(project.getNameOfProject())
@@ -73,14 +81,17 @@ public class ProjectSteps extends BaseSteps {
     }
 
     public void createProjectAPI(ProjectAPI projectAPI) {
+        log.info("Create project " + projectAPI.getName() + " from API");
         projectAdapter.addProject(projectAPI);
     }
 
     public void deleteProjectAPI(Project project) {
+        log.info("Delete project(created from UI) " + project.getNameOfProject());
         projectAdapter.deleteProject(project.getNameOfProject());
     }
 
     public void deleteProjectAPI(ProjectAPI projectAPI) {
+        log.info("Delete project(created from API) " + projectAPI.getName());
         projectAdapter.deleteProject(projectAPI.getName());
     }
 

@@ -7,6 +7,7 @@ import API.adapters.TestRunAdapter;
 import API.modelsAPI.TestResultAPI;
 import API.modelsAPI.TestRunAPI;
 import io.qameta.allure.Attachment;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -16,24 +17,23 @@ import org.testng.ITestListener;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-
+@Log4j2
 public class TestListener implements ITestListener {
 
     public static int testRailTestRunId;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        System.out.println(String.format("===== STARTING TEST %s =====", iTestResult.getName()));
+        log.debug("Starting test " + iTestResult.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        System.out.println(String.format("===== FINISHED TEST %s Duration: %s =====", iTestResult.getName(),
-                getExecutionTime(iTestResult)));
+        log.debug("Finished test " + iTestResult.getName() + " duration: " + getExecutionTime(iTestResult));
+
         ResultsAdapter resultsAdapter = new ResultsAdapter();
         TestAdapter testAdapter = new TestAdapter();
         TestResultAPI testResultPassed = TestResultAPI.builder()
@@ -47,13 +47,12 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        System.out.println(String.format("===== FAILED TEST %s Duration: %s =====", iTestResult.getName(),
-                getExecutionTime(iTestResult)));
+        log.debug("Failed test " + iTestResult.getName() + " duration: " + getExecutionTime(iTestResult));
+
         takeScreenshot(iTestResult);
 
         String errorMessage = iTestResult.getThrowable().toString();
         ITestNGMethod testNGMethod = iTestResult.getMethod();
-
         String testRailComment = "Test - FAILED\n\nTest method name = " + testNGMethod.getMethodName() + "\n\nFailure Exception = " + errorMessage;
 
         ResultsAdapter resultsAdapter = new ResultsAdapter();
@@ -70,7 +69,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        System.out.println(String.format("===== SKIPPING TEST %s =====", iTestResult.getName()));
+        log.debug("Skipping test " + iTestResult.getName());
         takeScreenshot(iTestResult);
     }
 

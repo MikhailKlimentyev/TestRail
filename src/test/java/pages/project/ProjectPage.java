@@ -1,10 +1,12 @@
-package pages;
+package pages.project;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.BasePage;
+import pages.DashboardPage;
 import pages.testcase.TestCasesPage;
 
 public class ProjectPage extends BasePage {

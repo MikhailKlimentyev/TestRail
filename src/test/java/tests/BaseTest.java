@@ -1,5 +1,6 @@
 package tests;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import utils.TestListener;
 
 import java.util.concurrent.TimeUnit;
 
+@Log4j2
 @Listeners(TestListener.class)
 public class BaseTest extends TestListener{
     WebDriver driver;
@@ -30,11 +32,11 @@ public class BaseTest extends TestListener{
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {
             Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
-            //log.fatal(ex.getLocalizedMessage());
+            log.fatal(ex.getLocalizedMessage());
         }
         String variable = "driver";
-        //System.out.println("Setting driver into context with variable name " + variable);
         context.setAttribute(variable, driver);
+        log.debug("Setting driver into context with variable name " + variable);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         projectSteps = new ProjectSteps(driver);
