@@ -17,7 +17,7 @@ import utils.TestListener;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
-public class BaseTest {
+public class BaseTest extends TestListener{
     WebDriver driver;
     LoginPage loginPage;
     ProjectSteps projectSteps;
@@ -32,7 +32,6 @@ public class BaseTest {
             Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
             //log.fatal(ex.getLocalizedMessage());
         }
-
         String variable = "driver";
         //System.out.println("Setting driver into context with variable name " + variable);
         context.setAttribute(variable, driver);

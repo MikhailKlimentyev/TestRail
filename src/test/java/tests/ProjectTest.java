@@ -3,8 +3,11 @@ package tests;
 import API.modelsAPI.ProjectAPI;
 import models.Project;
 import org.testng.annotations.Test;
+import utils.TestRail;
 
 public class ProjectTest extends Authorization {
+
+
 
     Project newProject = new Project("New Project", "Project for test",
             true, "Use a single repository for all cases (recommended)");
@@ -15,6 +18,7 @@ public class ProjectTest extends Authorization {
             .suiteMode(1)
             .build();
 
+    @TestRail(testCaseID = {6})
     @Test(description = "Create new project")
     public void isNewProjectCreated() {
         projectSteps
@@ -24,6 +28,7 @@ public class ProjectTest extends Authorization {
                 .deleteProjectAPI(newProject);
     }
 
+    @TestRail(testCaseID = {7})
     @Test(description = "Delete project")
     public void isProjectDeleted() {
         projectSteps
@@ -35,6 +40,7 @@ public class ProjectTest extends Authorization {
                 .validateIsProjectNotExisted(newProjectAPI);
     }
 
+    @TestRail(testCaseID = {8})
     @Test(description = "Update project")
     public void isProjectUpdated() {
         projectSteps.createProjectAPI(newProjectAPI);

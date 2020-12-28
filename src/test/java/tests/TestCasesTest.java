@@ -6,6 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.TestRail;
 
 public class TestCasesTest extends Authorization {
 
@@ -54,6 +55,7 @@ public class TestCasesTest extends Authorization {
                 .createProjectAPI(newProjectAPI);
     }
 
+    @TestRail(testCaseID = {9,10,11,12,13})
     @Test(description = "Create new test case", dataProvider = "Data fo test creating test cases")
     public void isTestCaseCreated(TestCase testCase) {
         testCasesSteps
@@ -75,6 +77,7 @@ public class TestCasesTest extends Authorization {
         };
     }
 
+    @TestRail(testCaseID = {14})
     @Test(description = "Delete test case")
     public void isTestCaseDeleted() {
         testCasesSteps
@@ -85,6 +88,7 @@ public class TestCasesTest extends Authorization {
                 .validateIsTestCaseDeleted(testCase1);
     }
 
+    @TestRail(testCaseID = {15})
     @Test(description = "Update test case")
     public void isTestCaseUpdated() {
         testCasesSteps
