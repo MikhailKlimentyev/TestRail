@@ -3,6 +3,8 @@ package utils;
 import models.TestCase;
 import org.openqa.selenium.WebElement;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,9 +12,9 @@ public class Utils {
 
     public static String parseStr(String s, String name) {
         String[] text = s.split("\\n");
-        for (int i = 0; i < text.length; i++) {
-            if (!text[i].equals(name)) {
-                return text[i];
+        for (String value : text) {
+            if (!value.equals(name)) {
+                return value;
             }
         }
         throw new NoSuchElementException("Error");
@@ -41,4 +43,10 @@ public class Utils {
         }
         return count;
     }
+
+    public static String generateNameOfTestRun() {
+        String dateStr = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
+        return "New Test Run " + dateStr;
+    }
+
 }

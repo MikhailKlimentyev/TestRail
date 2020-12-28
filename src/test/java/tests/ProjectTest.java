@@ -7,8 +7,6 @@ import utils.TestRail;
 
 public class ProjectTest extends Authorization {
 
-
-
     Project newProject = new Project("New Project", "Project for test",
             true, "Use a single repository for all cases (recommended)");
     ProjectAPI newProjectAPI = ProjectAPI.builder()

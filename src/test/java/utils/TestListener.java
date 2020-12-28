@@ -50,6 +50,22 @@ public class TestListener implements ITestListener {
         System.out.println(String.format("===== FAILED TEST %s Duration: %s =====", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
         takeScreenshot(iTestResult);
+
+        String errorMessage = iTestResult.getThrowable().toString();
+        ITestNGMethod testNGMethod = iTestResult.getMethod();
+
+        String testRailComment = "Test - FAILED\n\nTest method name = " + testNGMethod.getMethodName() + "\n\nFailure Exception = " + errorMessage;
+
+        ResultsAdapter resultsAdapter = new ResultsAdapter();
+        TestAdapter testAdapter = new TestAdapter();
+        TestResultAPI testResultPassed = TestResultAPI.builder()
+                .statusID(5)
+                .comment(testRailComment)
+                .build();
+
+        for(int testCaseID: returnTestCaseID(iTestResult)){
+            resultsAdapter.addResult(testAdapter.getTestID(testCaseID,testRailTestRunId),testResultPassed);
+        }
     }
 
     @Override
@@ -81,7 +97,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext) {
         TestRunAPI testRunAPI = TestRunAPI.builder()
-                .name("New")
+                .name(Utils.generateNameOfTestRun())
                 .description("test")
                 .includeAll(true)
                 .build();

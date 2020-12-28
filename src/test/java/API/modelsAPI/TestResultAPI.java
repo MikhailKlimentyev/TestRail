@@ -9,4 +9,5 @@ import lombok.Data;
 public class TestResultAPI {
     @SerializedName("status_id")
     int statusID;
+    String comment;
 }
