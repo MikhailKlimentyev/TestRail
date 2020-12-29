@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class TestsAPI {
-   int id;
-   @SerializedName("case_id")
-   int caseId;
+    int id;
+    @SerializedName("case_id")
+    int caseId;
 }

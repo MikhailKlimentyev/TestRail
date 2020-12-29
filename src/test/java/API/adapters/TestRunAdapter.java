@@ -2,7 +2,7 @@ package API.adapters;
 
 import API.modelsAPI.TestRunAPI;
 
-public class TestRunAdapter extends BaseAdapter{
+public class TestRunAdapter extends BaseAdapter {
 
     String uriAddTestRun = "add_run/";
     String uriCloseTestRun = "close_run/";
@@ -14,6 +14,6 @@ public class TestRunAdapter extends BaseAdapter{
     }
 
     public void closeTestRun(int testRunId) {
-                post(uriCloseTestRun + testRunId, "");
+        post(uriCloseTestRun + testRunId, "");
     }
 }

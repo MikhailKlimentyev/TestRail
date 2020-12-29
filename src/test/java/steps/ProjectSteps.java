@@ -24,18 +24,18 @@ public class ProjectSteps extends BaseSteps {
         return this;
     }
 
-    @Step("Open project '{project.nameOfProject}'")
+    @Step("Open edit page project '{project.nameOfProject}'")
     public ProjectSteps openProject(Project project) {
-        log.info("Open project(create from UI) " + project.getNameOfProject());
+        log.info("Open edit page project(create from UI) " + project.getNameOfProject());
         projectsPage
                 .openProject(project.getNameOfProject())
                 .isPageOpened();
         return this;
     }
 
-    @Step("Open project '{projectAPI.name}'")
+    @Step("Open edit page project '{projectAPI.name}'")
     public ProjectSteps openProject(ProjectAPI projectAPI) {
-        log.info("Open project(create from API) " + projectAPI.getName());
+        log.info("Open edit page project(create from API) " + projectAPI.getName());
         projectsPage
                 .openProject(projectAPI.getName())
                 .isPageOpened();
@@ -45,8 +45,8 @@ public class ProjectSteps extends BaseSteps {
     @Step("Create new project '{project.nameOfProject}'")
     public ProjectSteps createProject(Project project) {
         log.info("Create new project " + project.getNameOfProject());
-        dashboardPage
-                .openProjectPage()
+        projectsPage
+                .clickButtonAddProject()
                 .isPageOpened()
                 .setNameOfProject(project.getNameOfProject())
                 .setAnnouncement(project.getAnnouncement())
@@ -67,6 +67,17 @@ public class ProjectSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Delete project '{projectAPI.name}'")
+    public ProjectSteps deleteProject(Project project) {
+        log.info("Delete project(created from API) " + project.getNameOfProject());
+        projectsPage
+                .clickDelete(project.getNameOfProject())
+                .isModalOpened()
+                .activateCheckbox()
+                .clickButtonOk();
+        return this;
+    }
+
     @Step("Update project '{projectAPI.name}'")
     public ProjectSteps updateProject(ProjectAPI projectAPI, Project project) {
         log.info("Update project(created from API) " + projectAPI.getName());
@@ -76,6 +87,19 @@ public class ProjectSteps extends BaseSteps {
                 .setAnnouncement(project.getAnnouncement())
                 .activateCheckbox(project.isShowAnnouncement())
                 .chooseRadiobutton(project.getRadio())
+                .clickAddProjectButton();
+        return this;
+    }
+
+    @Step("Update project '{projectAPI.name}'")
+    public ProjectSteps updateProject(Project project, Project projectUpd) {
+        log.info("Update project(created from UI) " + project.getNameOfProject());
+        projectsPage
+                .clickEdit(project.getNameOfProject())
+                .setNameOfProject(projectUpd.getNameOfProject())
+                .setAnnouncement(projectUpd.getAnnouncement())
+                .activateCheckbox(projectUpd.isShowAnnouncement())
+                .chooseRadiobutton(projectUpd.getRadio())
                 .clickAddProjectButton();
         return this;
     }
@@ -100,13 +124,13 @@ public class ProjectSteps extends BaseSteps {
         return this;
     }
 
-    public ProjectSteps validateIsProjectNotExisted(ProjectAPI projectAPI) {
-        assertEquals(projectsPage.numberOfProjectsByName(projectAPI.getName()), 0);
+    public ProjectSteps validateIsProjectNotExisted(Project project) {
+        assertEquals(projectsPage.numberOfProjectsByName(project.getNameOfProject()), 0);
         return this;
     }
 
     public ProjectSteps validateIsProjectUpdated(Project project) {
-        Project factProject = new Project(projectPage.getNameOfProject(), projectPage.getAnnouncement(), projectPage.getStatusCheckbox(), projectPage.getValueOfRadiobutton());
+        Project factProject = new Project(newProjectPage.getNameOfProject(), newProjectPage.getAnnouncement(), newProjectPage.getStatusCheckbox(), newProjectPage.getValueOfRadiobutton());
         assertEquals(project, factProject);
         return this;
     }

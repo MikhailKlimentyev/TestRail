@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class TestAdapter extends BaseAdapter{
+public class TestAdapter extends BaseAdapter {
 
     String uriGetAll = "get_tests/";
 

@@ -5,6 +5,7 @@ import API.adapters.TestCasesAdapter;
 import org.openqa.selenium.WebDriver;
 import pages.DashboardPage;
 import pages.LoginPage;
+import pages.project.NewProjectPage;
 import pages.project.ProjectPage;
 import pages.project.ProjectsPage;
 import pages.testcase.NewTestCasePage;
@@ -17,11 +18,13 @@ public abstract class BaseSteps {
     DashboardPage dashboardPage;
     ProjectPage projectPage;
     ProjectsPage projectsPage;
+    NewProjectPage newProjectPage;
     TestCasesPage testCasesPage;
     NewTestCasePage newTestCasePage;
     ViewTestCasePage viewTestCasePage;
     ProjectAdapter projectAdapter;
     TestCasesAdapter testCasesAdapter;
+
 
     public BaseSteps(WebDriver driver) {
         loginPage = new LoginPage(driver);
@@ -33,6 +36,7 @@ public abstract class BaseSteps {
         viewTestCasePage = new ViewTestCasePage(driver);
         projectAdapter = new ProjectAdapter();
         testCasesAdapter = new TestCasesAdapter();
+        newProjectPage = new NewProjectPage(driver);
     }
 
 }

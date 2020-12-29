@@ -25,6 +25,13 @@ public class TestListener implements ITestListener {
 
     public static int testRailTestRunId;
 
+    protected static void createTestRun(String nameOfProject, TestRunAPI testRunAPI) {
+        ProjectAdapter projectAdapter = new ProjectAdapter();
+        TestRunAdapter testRunAdapter = new TestRunAdapter();
+
+        testRailTestRunId = testRunAdapter.addTestRun(projectAdapter.getProjectID(nameOfProject), testRunAPI);
+    }
+
     @Override
     public void onTestStart(ITestResult iTestResult) {
         log.debug("Starting test " + iTestResult.getName());
@@ -40,8 +47,8 @@ public class TestListener implements ITestListener {
                 .statusID(1)
                 .build();
 
-        for(int testCaseID: returnTestCaseID(iTestResult)){
-            resultsAdapter.addResult(testAdapter.getTestID(testCaseID,testRailTestRunId),testResultPassed);
+        for (int testCaseID : returnTestCaseID(iTestResult)) {
+            resultsAdapter.addResult(testAdapter.getTestID(testCaseID, testRailTestRunId), testResultPassed);
         }
     }
 
@@ -62,8 +69,8 @@ public class TestListener implements ITestListener {
                 .comment(testRailComment)
                 .build();
 
-        for(int testCaseID: returnTestCaseID(iTestResult)){
-            resultsAdapter.addResult(testAdapter.getTestID(testCaseID,testRailTestRunId),testResultPassed);
+        for (int testCaseID : returnTestCaseID(iTestResult)) {
+            resultsAdapter.addResult(testAdapter.getTestID(testCaseID, testRailTestRunId), testResultPassed);
         }
     }
 
@@ -113,13 +120,6 @@ public class TestListener implements ITestListener {
 
     private long getExecutionTime(ITestResult iTestResult) {
         return TimeUnit.MILLISECONDS.toSeconds(iTestResult.getEndMillis() - iTestResult.getStartMillis());
-    }
-
-    protected static void createTestRun(String nameOfProject, TestRunAPI testRunAPI) {
-        ProjectAdapter projectAdapter = new ProjectAdapter();
-        TestRunAdapter testRunAdapter = new TestRunAdapter();
-
-        testRailTestRunId = testRunAdapter.addTestRun(projectAdapter.getProjectID(nameOfProject), testRunAPI);
     }
 
     private int[] returnTestCaseID(ITestResult result) {

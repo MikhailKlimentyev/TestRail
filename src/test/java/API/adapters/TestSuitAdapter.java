@@ -1,6 +1,5 @@
 package API.adapters;
 
-import API.modelsAPI.TestCasesAPI;
 import API.modelsAPI.TestSuitesAPI;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +10,7 @@ public class TestSuitAdapter extends BaseAdapter {
 
     String uriGetAllTestsSuites = "get_suites/";
     //String uriAddTestRun = "add_run/:project_id";
-   // String uriDelTestCase = "delete_case/";
+    // String uriDelTestCase = "delete_case/";
 
    /* public void addTestRun(int projectID) {
         post((uriDelTestCase + projectID), "");
