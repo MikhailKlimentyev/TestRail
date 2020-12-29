@@ -31,7 +31,7 @@ jobs:
           command: chmod 777 src/test/resources/WebDrivers/MAC/chromedriver
       - run:
           name: Running tests
-          command: mvn clean test -DsuiteXmlFile=src/test/resources/smoketest.xml
+          command: mvn clean test
       - run:
           name: Generate allure report
           command: mvn allure:report

@@ -1,6 +1,5 @@
 package tests;
 
-import API.adapters.AuthorizationAdapter;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +24,6 @@ public class BaseTest extends TestListener {
     LoginPage loginPage;
     ProjectSteps projectSteps;
     TestCasesSteps testCasesSteps;
-    AuthorizationAdapter authorizationAdapter;
 
     @BeforeClass(description = "Initialized WebDriver")
     public void setUp(ITestContext context) {

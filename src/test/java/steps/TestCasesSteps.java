@@ -26,6 +26,17 @@ public class TestCasesSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Open tab TEST CASES")
+    public TestCasesSteps openTestCasesPage(ProjectAPI projectAPI) {
+        dashboardPage
+                .openDashboardPage()
+                .isPageOpened()
+                .openProject(projectAPI.getName())
+                .clickTabTestCases()
+                .isPageOpened();
+        return this;
+    }
+
     @Step("Create test case 'testCase.title'")
     public TestCasesSteps createTestCase(TestCase testCase) {
         testCasesPage
@@ -79,6 +90,10 @@ public class TestCasesSteps extends BaseSteps {
         testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(projectAPI.getName()), testCase.getTitle());
     }
 
+    public void deleteTestCaseAPI(Project project, TestCase testCase) {
+        testCasesAdapter.deleteTestCase(projectAdapter.getProjectID(project.getNameOfProject()), testCase.getTitle());
+    }
+
     @Step("Delete test case 'testCase.title'")
     public TestCasesSteps deleteTestCase(TestCase testCase) {
         viewTestCasePage
@@ -96,7 +111,7 @@ public class TestCasesSteps extends BaseSteps {
         return this;
     }
 
-    @Step("Update test case 'testCase.title'")
+    @Step("Update test case 'testCaseUpdate.title'")
     public TestCasesSteps updateTestCase(TestCase testCaseUpdate) {
         viewTestCasePage
                 .clickButtonEdit()
