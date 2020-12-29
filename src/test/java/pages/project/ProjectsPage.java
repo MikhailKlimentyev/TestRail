@@ -17,6 +17,7 @@ public class ProjectsPage extends BasePage {
     public static final String DELETE_ICON = "//a[contains(text(),'%s')]/ancestor::tr//div[contains(@class,'icon-small-delete')]";
     public static final String EDIT_ICON = "//a[contains(text(),'%s')]/ancestor::tr//div[contains(@class,'icon-small-edit')]";
 
+
     public ProjectsPage(WebDriver driver) {
         super(driver);
     }
