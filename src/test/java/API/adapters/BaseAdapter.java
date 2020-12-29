@@ -22,7 +22,7 @@ public class BaseAdapter {
                         .get(urlAPI + uri)
                         .then()
                         .log().all()
-                        .statusCode(200)
+                        //.statusCode(200)
                         .extract().body().asString();
 
     }
@@ -39,7 +39,7 @@ public class BaseAdapter {
                         .post(urlAPI + uri)
                         .then()
                         .log().all()
-                        .statusCode(200)
+                        //.statusCode(200)
                         .extract().response();
     }
 
