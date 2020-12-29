@@ -1,34 +1,26 @@
-package pages;
+package pages.project;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages.testcase.TestCasesPage;
+import pages.BasePage;
 
-public class ProjectPage extends BasePage {
-
-    public static final By PROJECT_TAB = By.id("projects-tabs-project");
-    public static final By TEST_CASES_TAB = By.id("navigation-suites");
+public class NewProjectPage extends BasePage {
     public static final By NAME_INPUT = By.id("name");
     public static final By ANNOUNCEMENT_TEXTAREA = By.id("announcement");
     public static final By ANNOUNCEMENT_CHECKBOX = By.id("show_announcement");
     public static final String RADIOBUTTON_GROUP = "//div[contains(@class,'row add-project-row')]/descendant::strong[contains(text(),'%s')]";
     public static final String NAME_OF_CHECKED_RADIOBUTTON = "//div[contains(@class, 'radio')]//input[contains(@checked, 'checked')]//ancestor::label/strong";
     public static final By ADD_PROJECT_BUTTON = By.id("accept");
-    public static final By RETURN_TO_DASHBOARD_BUTTON = By.id("navigation-dashboard-top");
-    public static final By DASHBOARD_TAB = By.id("navigation-dashboard");
 
-    //public static final By PROJECT_TITLE = By.cssSelector(".page_title");
-    //public static final By PROJECT_ANNOUNCEMENT = By.xpath("//div[contains(@class,'markdown')]//p");
-
-    public ProjectPage(WebDriver driver) {
+    public NewProjectPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public ProjectPage isPageOpened() {
+    public NewProjectPage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(ADD_PROJECT_BUTTON));
         return this;
     }
@@ -38,7 +30,7 @@ public class ProjectPage extends BasePage {
     }
 
     @Step("Set '{name}' into field Name")
-    public ProjectPage setNameOfProject(String name) {
+    public NewProjectPage setNameOfProject(String name) {
         driver.findElement(NAME_INPUT).clear();
         driver.findElement(NAME_INPUT).sendKeys(name);
         return this;
@@ -49,14 +41,14 @@ public class ProjectPage extends BasePage {
     }
 
     @Step("Set '{announcement}' into field Announcement")
-    public ProjectPage setAnnouncement(String announcement) {
+    public NewProjectPage setAnnouncement(String announcement) {
         driver.findElement(ANNOUNCEMENT_TEXTAREA).clear();
         driver.findElement(ANNOUNCEMENT_TEXTAREA).sendKeys(announcement);
         return this;
     }
 
     @Step("Activate checkbox 'Show announcement'")
-    public ProjectPage activateCheckbox(boolean showAnnouncement) {
+    public NewProjectPage activateCheckbox(boolean showAnnouncement) {
         if (showAnnouncement) {
             if (!driver.findElement(ANNOUNCEMENT_CHECKBOX).isSelected()) {
                 driver.findElement(ANNOUNCEMENT_CHECKBOX).click();
@@ -74,7 +66,7 @@ public class ProjectPage extends BasePage {
     }
 
     @Step("Choose radiobutton '{radio}'")
-    public ProjectPage chooseRadiobutton(String radio) {
+    public NewProjectPage chooseRadiobutton(String radio) {
         driver.findElement(By.xpath(String.format(RADIOBUTTON_GROUP, radio))).click();
         return this;
     }
@@ -84,21 +76,10 @@ public class ProjectPage extends BasePage {
     }
 
     @Step("Click button 'Add Project'")
-    public ProjectPage clickAddProjectButton() {
+    public NewProjectPage clickAddProjectButton() {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].scrollIntoView()", driver.findElement(ADD_PROJECT_BUTTON));
         driver.findElement(ADD_PROJECT_BUTTON).click();
         return this;
-    }
-
-    @Step("Click tab TEST CASES")
-    public TestCasesPage clickTabTestCases() {
-        driver.findElement(TEST_CASES_TAB).click();
-        return new TestCasesPage(driver);
-    }
-
-    public DashboardPage returnToDashboardPage() {
-        driver.findElement(DASHBOARD_TAB).click();
-        return new DashboardPage(driver);
     }
 }

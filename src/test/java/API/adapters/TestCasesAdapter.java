@@ -32,6 +32,4 @@ public class TestCasesAdapter extends BaseAdapter {
     public void deleteTestCase(int projectID, String name) {
         post((uriDelTestCase + getTestCaseID(projectID, name)), "");
     }
-
-
 }

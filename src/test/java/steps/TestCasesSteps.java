@@ -2,6 +2,7 @@ package steps;
 
 import API.modelsAPI.ProjectAPI;
 import io.qameta.allure.Step;
+import models.Project;
 import models.TestCase;
 import org.openqa.selenium.WebDriver;
 import utils.Utils;
@@ -15,11 +16,11 @@ public class TestCasesSteps extends BaseSteps {
     }
 
     @Step("Open tab TEST CASES")
-    public TestCasesSteps openTestCasesPage(ProjectAPI projectAPI) {
+    public TestCasesSteps openTestCasesPage(Project project) {
         dashboardPage
                 .openDashboardPage()
                 .isPageOpened()
-                .openProject(projectAPI.getName())
+                .openProject(project.getNameOfProject())
                 .clickTabTestCases()
                 .isPageOpened();
         return this;

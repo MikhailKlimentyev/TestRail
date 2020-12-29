@@ -11,6 +11,7 @@ public class TestCasesPage extends BasePage {
 
     public static final By ADD_TEST_CASE_BUTTON = By.id("sidebar-cases-add");
     public static final String NAME_OF_TEST_CASE = "//table//span[contains(text(),'%s')]";
+
     public TestCasesPage(WebDriver driver) {
         super(driver);
     }
