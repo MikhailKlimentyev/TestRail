@@ -6,6 +6,7 @@ import API.adapters.TestAdapter;
 import API.adapters.TestRunAdapter;
 import API.modelsAPI.TestResultAPI;
 import API.modelsAPI.TestRunAPI;
+import API.modelsAPI.TestRunsAPI;
 import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchSessionException;
@@ -25,11 +26,17 @@ public class TestListener implements ITestListener {
 
     public static int testRailTestRunId;
 
-    protected static void createTestRun(String nameOfProject, TestRunAPI testRunAPI) {
+    protected static void createTestRun(String nameOfProject) {
         ProjectAdapter projectAdapter = new ProjectAdapter();
         TestRunAdapter testRunAdapter = new TestRunAdapter();
 
-        testRailTestRunId = testRunAdapter.addTestRun(projectAdapter.getProjectID(nameOfProject), testRunAPI);
+        TestRunAPI testRun = TestRunAPI.builder()
+                .name(Utils.generateNameOfTestRun())
+                .description("test")
+                .includeAll(true)
+                .build();
+
+        testRailTestRunId = testRunAdapter.addTestRun(projectAdapter.getProjectID(nameOfProject), testRun);
     }
 
     @Override
@@ -102,20 +109,28 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext iTestContext) {
-        TestRunAPI testRunAPI = TestRunAPI.builder()
-                .name(Utils.generateNameOfTestRun())
-                .description("test")
-                .includeAll(true)
-                .build();
+        if (testRailTestRunId == 0) {
+            createTestRun("TestRail");
+        } else {
+            TestRunAdapter testRunAdapter = new TestRunAdapter();
 
-        createTestRun("TestRail", testRunAPI);
+            TestRunsAPI testRuns = testRunAdapter.getTestRun(testRailTestRunId);
+
+            if (testRuns.isCompleted()) {
+                createTestRun("TestRail");
+            }
+        }
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-
         TestRunAdapter testRunAdapter = new TestRunAdapter();
-        testRunAdapter.closeTestRun(testRailTestRunId);
+
+        TestRunsAPI testRuns = testRunAdapter.getTestRun(testRailTestRunId);
+
+        if (testRuns.getUntestedCount() == 0) {
+            testRunAdapter.closeTestRun(testRailTestRunId);
+        }
     }
 
     private long getExecutionTime(ITestResult iTestResult) {

@@ -10,4 +10,6 @@ public class TestsAPI {
     int id;
     @SerializedName("case_id")
     int caseId;
+    @SerializedName("status_id")
+    int statusId;
 }
