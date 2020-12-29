@@ -1,25 +1,30 @@
 package tests;
 
-import API.modelsAPI.ProjectAPI;
 import models.Project;
 import org.testng.annotations.Test;
 import utils.TestRail;
 
 public class ProjectTest extends Authorization {
 
-    Project newProject = new Project("New Project", "Project for test",
-            true, "Use a single repository for all cases (recommended)");
-    ProjectAPI newProjectAPI = ProjectAPI.builder()
-            .name("New Project from API")
-            .announcement("project fo test create project")
+    Project newProject = Project.builder()
+            .nameOfProject("New Project")
+            .announcement("Project for test")
             .showAnnouncement(true)
-            .suiteMode(1)
+            .radio("Use a single repository for all cases (recommended)")
+            .build();
+
+    Project newProjectUpd = Project.builder()
+            .nameOfProject("Updated Project")
+            .announcement("UPD Project for test")
+            .showAnnouncement(false)
+            .radio("Use a single repository for all cases (recommended)")
             .build();
 
     @TestRail(testCaseID = {6})
     @Test(description = "Create new project")
     public void isNewProjectCreated() {
         projectSteps
+                .openProjectsPage()
                 .createProject(newProject)
                 .openProjectsPage()
                 .validateIsProjectExisted(newProject)
@@ -30,24 +35,26 @@ public class ProjectTest extends Authorization {
     @Test(description = "Delete project")
     public void isProjectDeleted() {
         projectSteps
-                .createProjectAPI(newProjectAPI);
-        projectSteps
                 .openProjectsPage()
-                .deleteProject(newProjectAPI)
+                .createProject(newProject)
                 .openProjectsPage()
-                .validateIsProjectNotExisted(newProjectAPI);
+                .deleteProject(newProject)
+                .openProjectsPage()
+                .validateIsProjectNotExisted(newProject);
     }
 
     @TestRail(testCaseID = {8})
     @Test(description = "Update project")
     public void isProjectUpdated() {
-        projectSteps.createProjectAPI(newProjectAPI);
         projectSteps
                 .openProjectsPage()
-                .updateProject(newProjectAPI, newProject)
+                .createProject(newProject)
                 .openProjectsPage()
-                .openProject(newProject)
-                .validateIsProjectUpdated(newProject);
-        projectSteps.deleteProjectAPI(newProject);
+                .updateProject(newProject, newProjectUpd)
+                .openProjectsPage()
+                .openProject(newProjectUpd)
+                .validateIsProjectUpdated(newProjectUpd)
+                .openProjectsPage()
+                .deleteProject(newProjectUpd);
     }
 }

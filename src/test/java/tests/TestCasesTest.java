@@ -10,7 +10,7 @@ import utils.TestRail;
 
 public class TestCasesTest extends Authorization {
 
-    ProjectAPI newProjectAPI = ProjectAPI.builder()
+   ProjectAPI newProjectAPI = ProjectAPI.builder()
             .name("Project For Test Test Cases")
             .announcement("project fo test create project")
             .showAnnouncement(true)
@@ -55,7 +55,7 @@ public class TestCasesTest extends Authorization {
                 .createProjectAPI(newProjectAPI);
     }
 
-    @TestRail(testCaseID = {9,10,11,12,13})
+    @TestRail(testCaseID = {9, 10, 11, 12, 13})
     @Test(description = "Create new test case", dataProvider = "Data fo test creating test cases")
     public void isTestCaseCreated(TestCase testCase) {
         testCasesSteps
@@ -97,7 +97,7 @@ public class TestCasesTest extends Authorization {
                 .openViewTestCasePage(testCase1)
                 .updateTestCase(testCaseUpdated)
                 .validateTestCase(testCaseUpdated)
-                .deleteTestCaseAPI(newProjectAPI, testCaseUpdated);
+                .deleteTestCaseAPI(newProjectAPI,testCaseUpdated);
     }
 
     @AfterClass
