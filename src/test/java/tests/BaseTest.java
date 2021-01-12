@@ -19,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 @Log4j2
 @Listeners(TestListener.class)
-public class BaseTest extends TestListener {
+public class BaseTest {
+
     WebDriver driver;
     LoginPage loginPage;
     ProjectSteps projectSteps;
@@ -27,7 +28,6 @@ public class BaseTest extends TestListener {
 
     @BeforeClass(description = "Initialized WebDriver")
     public void setUp(ITestContext context) {
-
         try {
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {

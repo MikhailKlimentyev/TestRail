@@ -8,6 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class Project {
+
     String nameOfProject;
     String announcement;
     boolean showAnnouncement;

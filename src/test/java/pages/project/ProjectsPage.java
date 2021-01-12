@@ -9,9 +9,8 @@ import pages.BasePage;
 import utils.PropertyReader;
 import utils.Utils;
 
-import static data.TestData.URL_PROJECTS;
-
 public class ProjectsPage extends BasePage {
+
     public static final String NAME_OF_PROJECT = "//a[contains(text(),'%s')]";
     public static final By ADD_PROJECT_BUTTON = By.xpath("//a[contains(text(),'Add Project')]");
     public static final String DELETE_ICON = "//a[contains(text(),'%s')]/ancestor::tr//div[contains(@class,'icon-small-delete')]";
@@ -24,7 +23,9 @@ public class ProjectsPage extends BasePage {
 
     @Step("Open page with all projects")
     public ProjectsPage openProjectsPage() {
-        driver.get(System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) + URL_PROJECTS);
+        String url = System.getenv().getOrDefault("url", PropertyReader.getProperty("url")) +
+                "index.php?/admin/projects/overview";
+        driver.get(url);
         return this;
     }
 

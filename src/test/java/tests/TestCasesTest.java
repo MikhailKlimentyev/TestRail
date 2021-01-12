@@ -2,8 +2,8 @@ package tests;
 
 import API.modelsAPI.ProjectAPI;
 import models.TestCase;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.TestRail;
@@ -49,10 +49,16 @@ public class TestCasesTest extends Authorization {
             "UPD Click tab",
             "UPD Page is added");
 
-    @BeforeClass
+    @BeforeMethod
     public void createProject() {
         projectSteps
                 .createProjectAPI(newProjectAPI);
+    }
+
+    @AfterMethod
+    public void deleteProject() {
+        projectSteps
+                .deleteProjectAPI(newProjectAPI);
     }
 
     @TestRail(testCaseID = {9, 10, 11, 12, 13})
@@ -99,11 +105,4 @@ public class TestCasesTest extends Authorization {
                 .validateTestCase(testCaseUpdated)
                 .deleteTestCaseAPI(newProjectAPI, testCaseUpdated);
     }
-
-    @AfterClass
-    public void deleteProject() {
-        projectSteps
-                .deleteProjectAPI(newProjectAPI);
-    }
-
 }

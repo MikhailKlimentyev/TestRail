@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class TestRunAPI {
+
     // @SerializedName("suite_id")
     // int suiteID;
     String name;

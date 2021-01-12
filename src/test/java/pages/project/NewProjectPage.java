@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
 
 public class NewProjectPage extends BasePage {
+
     public static final By NAME_INPUT = By.id("name");
     public static final By ANNOUNCEMENT_TEXTAREA = By.id("announcement");
     public static final By ANNOUNCEMENT_CHECKBOX = By.id("show_announcement");

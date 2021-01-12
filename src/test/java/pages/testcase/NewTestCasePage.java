@@ -4,7 +4,9 @@ import elements.DropDown;
 import io.qameta.allure.Step;
 import modals.DeleteTestCaseModal;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
 
@@ -91,7 +93,9 @@ public class NewTestCasePage extends BasePage {
 
     @Step("Click button 'Add Test Case'")
     public ViewTestCasePage clickButtonAddTestCase() {
-        driver.findElement(ADD_TEST_CASE_BUTTON).click();
+        WebElement element = driver.findElement(ADD_TEST_CASE_BUTTON);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
         return new ViewTestCasePage(driver);
     }
 

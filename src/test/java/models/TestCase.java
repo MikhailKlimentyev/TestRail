@@ -8,6 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class TestCase {
+
     String title;
     String type;
     String priority;

@@ -16,7 +16,7 @@ public class CapabilitiesGenerator {
         } else if (os.contains("mac")) {
             System.setProperty("webdriver.chrome.driver", driverPath + "/MAC/chromedriver");
         }
-
+        options.addArguments("--start-maximized");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-notifications");

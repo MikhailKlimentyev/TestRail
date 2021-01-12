@@ -20,7 +20,7 @@ public class ProjectTest extends Authorization {
             .radio("Use a single repository for all cases (recommended)")
             .build();
 
-    @TestRail(testCaseID = {6})
+    @TestRail(testCaseID = {1})
     @Test(description = "Create new project")
     public void isNewProjectCreated() {
         projectSteps

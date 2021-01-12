@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class TestRunsAPI {
+
     @SerializedName("untested_count")
     int untestedCount;
     @SerializedName("is_completed")
